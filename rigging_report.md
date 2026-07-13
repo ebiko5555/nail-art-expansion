@@ -2,36 +2,36 @@
 
 ## Summary
 
-既存アプリ内の `hand.glb` を原本として保持し、複製したメッシュへMediaPipe Hand Landmarker向け17骨とウェイトを自動生成した。配布リグ付きモデルに相当するファイルは、調査した作業フォルダと関連候補内には存在しなかったため、既存リグの転用ではなくMediaPipe 21点構造から専用リグを作成した。
+指が細長い旧モデルを、解剖学的な比率と既存ウェイトを持つ配布リグ付きモデルへ差し替えた。元GLBを保持し、Web用の複製だけに骨名統一、補助オブジェクト除外、アニメーション除外を行った。
 
-## 原モデル解析
+## 配布モデル解析
 
-- 右手。指先方向はBlenderの+Z、親指は-X、厚みはY。
-- 指は5本で開いた姿勢。指同士の接触はない。
-- 単一メッシュ、4,416頂点、7,600ポリゴン。
-- 2材質: `CrystalSkin`、`CrystalNail`。
-- UV `UVMap`あり。外部テクスチャ画像なし。Color Attribute、シェイプキー、モディファイアなし。
-- 読込時の寸法は X=1.744407、Y=0.450801、Z=2.157161。オブジェクト位置はZ=-0.5。
-- 境界／非多様体エッジは752。爪・装飾など離れたパーツ由来で、見た目と材質境界を守るため自動結合は行っていない。
-- レンダーとGLB再読込で法線の表示破綻は確認されなかった。
+- 出典: `Anatomically Accurate Rigged Hand Model for XR` © 2026 Emma L. D. Lieker。
+- ライセンス: CC BY-NC 4.0。作者表記必須、商用利用不可。
+- 自然な開いた手のRest Pose。指同士の接触なし。
+- 単一スキンドメッシュ、5,248頂点、4,370ポリゴン。
+- 21本の既存変形骨、全5,248頂点にウェイトあり。
+- 1材質、UV `UVMap`あり。Web側で「水晶／痕跡」へ着色する。
+- 配布GLBに表示用Icosphereと3アニメーションが含まれていた。
 
 ## 前処理
 
-- 元 `hand.glb` は変更せず、`.backups/2026-07-13-before-rigging/hand.glb`にも複製保存。
-- 出力Blend内にも `OriginalHand_UNMODIFIED` を非表示コレクションで保持。
-- 読込ノードのTransformを複製側メッシュへ適用し、手首を原点へ移動。
-- 法線再計算、頂点結合、Decimateは、造形・質感を変える危険があるため未実施。
+- 旧 `rigged_hand.glb` と `index.html` は `.backups/2026-07-13-before-anatomical-hand/`へ保存。
+- 配布元GLBは `assets/source_models/Do_Hand_DetailedRiggedAnimated_shared_16022026.glb`として無変更で保持。
+- Web用からIcosphereと埋込アニメーションを除外。
+- 既存ウェイト、UV、形状は変更せず、Decimateも行っていない。
+- `rigging/prepare_anatomical_hand.py`で同じ変換を再生成できる。
 
 ## 骨構造
 
 - `wristR` → `handR`
-- `handR` → `thumb1R` → `thumb2R` → `thumb3R`
-- `handR` → `index1R` → `index2R` → `index3R`
-- `handR` → `middle1R` → `middle2R` → `middle3R`
-- `handR` → `ring1R` → `ring2R` → `ring3R`
-- `handR` → `pinky1R` → `pinky2R` → `pinky3R`
+- `handR` → `thumb0R` → `thumb1R` → `thumb2R` → `thumb3R`
+- `handR` → `index0R` → `index1R` → `index2R` → `index3R`
+- `handR` → `middle0R` → `middle1R` → `middle2R` → `middle3R`
+- `handR` → `ring0R` → `ring1R` → `ring2R` → `ring3R`
+- `handR` → `pinky0R` → `pinky1R` → `pinky2R` → `pinky3R`
 
-合計17骨。全骨を変形骨としてGLBへ書き出した。骨のY軸を長手方向、ロールは手のひら法線を基準に揃えている。
+合計22骨。`wristR`はWeb側の基準用、`0R`は中手骨（手のひら内部の骨）。MediaPipeで直接回す必須骨は17本で、既存アプリの名前を維持した。
 
 ## MediaPipe対応
 
@@ -46,11 +46,11 @@
 
 ## ウェイト
 
-各指の中心線に相当する骨セグメントへの距離から、近い2骨へ滑らかに分配した。手のひらは `handR`、手首端は `wristR` と `handR`を補間。離れた爪パーツは連結単位で各指の先端骨へ固定し、装飾は `handR`へ固定した。全4,416頂点にウェイトがあり、負値・1超過・未ウェイト頂点は0。
+作者が設定した既存ウェイトを保持した。GLB内部の全ウェイト行を検査し、未正規化行は0。補助骨を残したため、手のひらから指の付け根への変形も維持される。
 
 ## ポーズテスト
 
-伸ばす、軽く握る、強く握る、親指、人差し指、中指、薬指＋小指、指を開く、手首の9種類を自動生成した。全ポーズで頂点は有限値、頂点数4,416・ポリゴン数7,600を維持。初回テストで爪の伸長を検出し、先端骨固定へ補正後に再テストした。
+伸ばす、軽く曲げる、握る、親指、人差し指、中指、薬指＋小指、指を開く、手首の9種類を再生成した。全ポーズで頂点は有限値、頂点数5,248・ポリゴン数4,370を維持した。
 
 確認画像: `dist/pose_tests/`
 

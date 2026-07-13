@@ -20,4 +20,6 @@ for (const bone of ['wristR', 'handR', 'thumb3R', 'index3R', 'middle3R', 'ring3R
   assert.match(html, new RegExp(`\\b${bone}\\b`), `${bone} mapping exists`);
 }
 assert.match(html, /new THREE\.GLTFLoader\(\)\.load\('rigged_hand\.glb'/, 'rigged GLB path');
+assert.match(html, /Emma L\. D\. Lieker/, 'downloaded model attribution exists');
+assert.match(html, /CC BY-NC 4\.0/, 'downloaded model license exists');
 console.log('static.test.mjs: PASS');

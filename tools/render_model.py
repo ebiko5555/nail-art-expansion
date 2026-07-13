@@ -27,7 +27,12 @@ def render_view(mesh: bpy.types.Object, output: str, direction: Vector) -> None:
     camera_data.ortho_scale = span
     bpy.context.scene.camera = camera
     scene = bpy.context.scene
-    scene.render.engine = "BLENDER_EEVEE_NEXT"
+    # Workbench reveals the silhouette even when a downloaded material is dark
+    # or transparent, which is safer for geometry inspection.
+    scene.render.engine = "BLENDER_WORKBENCH"
+    scene.display.shading.light = "STUDIO"
+    scene.display.shading.color_type = "MATERIAL"
+    scene.display.shading.show_shadows = True
     scene.render.resolution_x = 700
     scene.render.resolution_y = 900
     scene.render.resolution_percentage = 100
@@ -46,6 +51,11 @@ def main() -> None:
     for obj in list(bpy.data.objects):
         bpy.data.objects.remove(obj, do_unlink=True)
     bpy.ops.import_scene.gltf(filepath=input_path)
+    for armature in (obj for obj in bpy.data.objects if obj.type == "ARMATURE"):
+        armature.animation_data_clear()
+        for pose_bone in armature.pose.bones:
+            pose_bone.matrix_basis.identity()
+    bpy.context.view_layer.update()
     mesh = next(obj for obj in bpy.data.objects if obj.type == "MESH")
     os.makedirs(output_dir, exist_ok=True)
 

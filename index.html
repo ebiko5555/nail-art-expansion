@@ -149,6 +149,8 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 9px; line-height: 1.5; opacity: .55;
   }
+  .model-credit { margin-top: 7px; font-size: 9px; line-height: 1.45; opacity: .45; }
+  .model-credit a { color: inherit; text-underline-offset: 2px; }
   @media (max-height: 720px) {
     #panel { max-height: 46dvh; overflow-y: auto; }
     .slider-row { margin-bottom: 7px; }
@@ -242,6 +244,7 @@
       </div>
     </details>
     <div id="hint">カメラに手をかざすと、水晶の手が追従します</div>
+    <div class="model-credit">Hand model © 2026 <a href="https://sketchfab.com/3d-models/anatomically-accurate-rigged-hand-model-for-xr-86f37207468b427ead21e2eef820c06c" target="_blank" rel="noreferrer">Emma L. D. Lieker</a> · CC BY-NC 4.0</div>
   </div>
 
   <div id="start-overlay">
@@ -552,13 +555,15 @@ new THREE.GLTFLoader().load('rigged_hand.glb', gltf => {
         const materials = Array.isArray(object.material) ? object.material : [object.material];
         materials.forEach(material => {
           material.transparent = true;
+          material.side = THREE.DoubleSide;
+          material.depthWrite = false;
           if (material.name && material.name.includes('Nail')) {
             material.color.set(0xf3b8d4);
             material.emissive.set(0xff7fb5);
             if ('transmission' in material) material.transmission = 0;
             material.userData.isNail = true;
           }
-          glbMats.push(material);
+          if (!glbMats.includes(material)) glbMats.push(material);
         });
       }
     });
@@ -568,9 +573,9 @@ new THREE.GLTFLoader().load('rigged_hand.glb', gltf => {
     skeletonHelper.material.transparent = true;
     skeletonHelper.material.opacity = 0.8;
     scene.add(skeletonHelper);
-    applySliders();
+    selectArt(activeArt);
     applyDisplayMode();
-    statusEl.textContent = 'リグ付きモデル読み込み完了';
+    statusEl.textContent = '自然形状のリグ付きモデル読み込み完了';
   } catch (error) {
     console.error(error);
     statusEl.textContent = '骨構造を確認できません';

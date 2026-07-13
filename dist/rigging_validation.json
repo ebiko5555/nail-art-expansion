@@ -1,164 +1,34 @@
 {
-  "generated_at": "2026-07-13T13:39:22",
-  "blender_version": "4.5.9 LTS",
-  "input": "/Users/imafukuemiko/Desktop/NailArtExpansion_demo/hand.glb",
+  "generated_at": "2026-07-13T14:15:11",
+  "blender_version": "5.1.1",
+  "input": "/Users/imafukuemiko/Desktop/NailArtExpansion_demo/assets/source_models/Do_Hand_DetailedRiggedAnimated_shared_16022026.glb",
+  "source_url": "https://sketchfab.com/3d-models/anatomically-accurate-rigged-hand-model-for-xr-86f37207468b427ead21e2eef820c06c",
+  "creator": "Emma L. D. Lieker",
+  "license": "CC BY-NC 4.0",
   "source": {
-    "vertices": 4416,
-    "polygons": 7600,
+    "vertices": 5248,
+    "polygons": 4370,
     "materials": [
-      "CrystalSkin",
-      "CrystalNail"
+      "AnatomicalHandSurface"
     ],
     "uv_layers": [
       "UVMap"
     ],
-    "color_attributes": [],
-    "shape_keys": [],
-    "modifiers": []
-  },
-  "orientation": {
-    "original_bounds_min": [
-      -0.9455733895301819,
-      -0.22448071837425232,
-      -0.46718546748161316
-    ],
-    "original_bounds_max": [
-      0.798833429813385,
-      0.22632063925266266,
-      1.6899752616882324
-    ],
-    "dimensions": [
-      1.744406819343567,
-      0.45080137252807617,
-      2.157160758972168
-    ],
-    "wrist_origin_before_shift": [
-      -0.07336997985839844,
-      0.0009199604392051697,
-      -0.2730410099029541
-    ],
-    "right_hand_basis": "+Z fingers, +X index-to-pinky, -X thumb, Y thickness"
-  },
-  "landmarks": {
-    "0": [
-      0.0,
-      0.0,
-      0.0
-    ],
-    "1": [
-      -0.2965491712093353,
-      0.0,
-      0.17257288098335266
-    ],
-    "2": [
-      -0.5407661199569702,
-      0.0,
-      0.34514573216438293
-    ],
-    "3": [
-      -0.7500949501991272,
-      0.0,
-      0.539290189743042
-    ],
-    "4": [
-      -0.9070915579795837,
-      0.0,
-      0.7981494665145874
-    ],
-    "5": [
-      -0.43610167503356934,
-      0.0,
-      0.6471482515335083
-    ],
-    "6": [
-      -0.4884338974952698,
-      0.0,
-      1.0354371070861816
-    ],
-    "7": [
-      -0.5233220458030701,
-      0.0,
-      1.4021544456481934
-    ],
-    "8": [
-      -0.5407661199569702,
-      0.0,
-      1.768871784210205
-    ],
-    "9": [
-      0.0,
-      0.0,
-      0.6687198877334595
-    ],
-    "10": [
-      0.0,
-      0.0,
-      1.1217236518859863
-    ],
-    "11": [
-      0.0,
-      0.0,
-      1.5315841436386108
-    ],
-    "12": [
-      0.0,
-      0.0,
-      1.952230453491211
-    ],
-    "13": [
-      0.3488813638687134,
-      0.0,
-      0.6471482515335083
-    ],
-    "14": [
-      0.38376951217651367,
-      0.0,
-      1.0570087432861328
-    ],
-    "15": [
-      0.4186576306819916,
-      0.0,
-      1.4237260818481445
-    ],
-    "16": [
-      0.45354577898979187,
-      0.0,
-      1.768871784210205
-    ],
-    "17": [
-      0.5930983424186707,
-      0.0,
-      0.5824334025382996
-    ],
-    "18": [
-      0.6803186535835266,
-      0.0,
-      0.9060075283050537
-    ],
-    "19": [
-      0.7500949501991272,
-      0.0,
-      1.229581594467163
-    ],
-    "20": [
-      0.8024271130561829,
-      0.0,
-      1.5315841436386108
-    ]
+    "weighted_vertices": 5248
   },
   "bones": [
     {
       "name": "wristR",
       "parent": null,
-      "deform": true,
+      "deform": false,
       "head": [
-        0.0,
-        0.0,
-        -0.2588592767715454
+        -0.025067361071705818,
+        -0.6288120746612549,
+        -0.5317552089691162
       ],
       "tail": [
         0.0,
-        0.0,
+        -0.303692489862442,
         0.0
       ]
     },
@@ -168,208 +38,43 @@
       "deform": true,
       "head": [
         0.0,
-        0.0,
+        -0.303692489862442,
         0.0
       ],
       "tail": [
-        0.0,
-        0.0,
-        0.6687198877334595
+        0.03342314809560776,
+        0.12980026006698608,
+        0.7090069651603699
       ]
     },
     {
-      "name": "thumb1R",
+      "name": "pinky0R",
       "parent": "handR",
       "deform": true,
       "head": [
-        -0.2965491712093353,
-        0.0,
-        0.17257288098335266
+        0.07930169254541397,
+        0.7248372435569763,
+        1.6822307109832764
       ],
       "tail": [
-        -0.5407661199569702,
-        0.0,
-        0.34514573216438293
-      ]
-    },
-    {
-      "name": "thumb2R",
-      "parent": "thumb1R",
-      "deform": true,
-      "head": [
-        -0.5407661199569702,
-        0.0,
-        0.34514573216438293
-      ],
-      "tail": [
-        -0.7500949501991272,
-        0.0,
-        0.539290189743042
-      ]
-    },
-    {
-      "name": "thumb3R",
-      "parent": "thumb2R",
-      "deform": true,
-      "head": [
-        -0.7500949501991272,
-        0.0,
-        0.539290189743042
-      ],
-      "tail": [
-        -0.9070915579795837,
-        0.0,
-        0.7981494665145874
-      ]
-    },
-    {
-      "name": "index1R",
-      "parent": "handR",
-      "deform": true,
-      "head": [
-        -0.43610167503356934,
-        0.0,
-        0.6471482515335083
-      ],
-      "tail": [
-        -0.4884338974952698,
-        0.0,
-        1.0354371070861816
-      ]
-    },
-    {
-      "name": "index2R",
-      "parent": "index1R",
-      "deform": true,
-      "head": [
-        -0.4884338974952698,
-        0.0,
-        1.0354371070861816
-      ],
-      "tail": [
-        -0.5233220458030701,
-        0.0,
-        1.4021544456481934
-      ]
-    },
-    {
-      "name": "index3R",
-      "parent": "index2R",
-      "deform": true,
-      "head": [
-        -0.5233220458030701,
-        0.0,
-        1.4021544456481934
-      ],
-      "tail": [
-        -0.5407661199569702,
-        0.0,
-        1.768871784210205
-      ]
-    },
-    {
-      "name": "middle1R",
-      "parent": "handR",
-      "deform": true,
-      "head": [
-        0.0,
-        0.0,
-        0.6687198877334595
-      ],
-      "tail": [
-        0.0,
-        0.0,
-        1.1217236518859863
-      ]
-    },
-    {
-      "name": "middle2R",
-      "parent": "middle1R",
-      "deform": true,
-      "head": [
-        0.0,
-        0.0,
-        1.1217236518859863
-      ],
-      "tail": [
-        0.0,
-        0.0,
-        1.5315841436386108
-      ]
-    },
-    {
-      "name": "middle3R",
-      "parent": "middle2R",
-      "deform": true,
-      "head": [
-        0.0,
-        0.0,
-        1.5315841436386108
-      ],
-      "tail": [
-        0.0,
-        0.0,
-        1.952230453491211
-      ]
-    },
-    {
-      "name": "ring1R",
-      "parent": "handR",
-      "deform": true,
-      "head": [
-        0.3488813638687134,
-        0.0,
-        0.6471482515335083
-      ],
-      "tail": [
-        0.38376951217651367,
-        0.0,
-        1.0570087432861328
-      ]
-    },
-    {
-      "name": "ring2R",
-      "parent": "ring1R",
-      "deform": true,
-      "head": [
-        0.38376951217651367,
-        0.0,
-        1.0570087432861328
-      ],
-      "tail": [
-        0.4186576306819916,
-        0.0,
-        1.4237260818481445
-      ]
-    },
-    {
-      "name": "ring3R",
-      "parent": "ring2R",
-      "deform": true,
-      "head": [
-        0.4186576306819916,
-        0.0,
-        1.4237260818481445
-      ],
-      "tail": [
-        0.45354577898979187,
-        0.0,
-        1.768871784210205
+        -0.09280932694673538,
+        0.3794173300266266,
+        3.3254570960998535
       ]
     },
     {
       "name": "pinky1R",
-      "parent": "handR",
+      "parent": "pinky0R",
       "deform": true,
       "head": [
-        0.5930983424186707,
-        0.0,
-        0.5824334025382996
+        -0.3290586769580841,
+        -0.09472525864839554,
+        5.581043243408203
       ],
       "tail": [
-        0.6803186535835266,
-        0.0,
-        0.9060075283050537
+        -0.3155818581581116,
+        -0.2459087073802948,
+        6.341065406799316
       ]
     },
     {
@@ -377,14 +82,14 @@
       "parent": "pinky1R",
       "deform": true,
       "head": [
-        0.6803186535835266,
-        0.0,
-        0.9060075283050537
+        -0.29708296060562134,
+        -0.4534313976764679,
+        7.38431453704834
       ],
       "tail": [
-        0.7500949501991272,
-        0.0,
-        1.229581594467163
+        -0.2750121057033539,
+        -0.5344563722610474,
+        7.773510456085205
       ]
     },
     {
@@ -392,2698 +97,277 @@
       "parent": "pinky2R",
       "deform": true,
       "head": [
-        0.7500949501991272,
-        0.0,
-        1.229581594467163
+        -0.24471621215343475,
+        -0.6456762552261353,
+        8.30774211883545
       ],
       "tail": [
-        0.8024271130561829,
-        0.0,
-        1.5315841436386108
+        -0.2420961856842041,
+        -0.7289674878120422,
+        8.697076797485352
       ]
-    }
-  ],
-  "weight_vertex_counts": {
-    "wristR": 113,
-    "handR": 1840,
-    "thumb1R": 159,
-    "thumb2R": 309,
-    "thumb3R": 210,
-    "index1R": 237,
-    "index2R": 454,
-    "index3R": 277,
-    "middle1R": 576,
-    "middle2R": 873,
-    "middle3R": 357,
-    "ring1R": 529,
-    "ring2R": 762,
-    "ring3R": 293,
-    "pinky1R": 370,
-    "pinky2R": 587,
-    "pinky3R": 277
-  },
-  "nail_component_assignments": [
-    {
-      "vertices": 3,
-      "centroid": [
-        0.47514352202415466,
-        -0.027578433975577354,
-        0.3676782548427582
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.209360144326058,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4691914916038513,
-        -0.04662629961967468,
-        0.30147916078567505
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.275295288873407,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.45601147413253784,
-        -0.061145931482315063,
-        0.3879423141479492
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.1965196460258625,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4463806748390198,
-        -0.09196621179580688,
-        0.2808299660682678
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3036919656723278,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.438234806060791,
-        -0.1009397804737091,
-        0.3342672288417816
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2555447591473372,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5085930228233337,
-        -0.06181110069155693,
-        0.2665596008300781
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3001715914651257,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.518223762512207,
-        -0.03099082224071026,
-        0.3736719787120819
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.1926828763690311,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5388966798782349,
-        -0.05214785784482956,
-        0.3111773133277893
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2496240752784362,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5257166624069214,
-        -0.06666748225688934,
-        0.39764052629470825
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.169119847564232,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5510202646255493,
-        -0.1098737120628357,
-        0.3499591052532196
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2130602830825261,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5591660737991333,
-        -0.10090015828609467,
-        0.2965218424797058
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2628285071508496,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4872671067714691,
-        -0.08530430495738983,
-        0.4064600467681885
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.1715403710866523,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.03947825729846954,
-        -0.10398875176906586,
-        0.010328492149710655
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.176532369205038,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.026389583945274353,
-        -0.13661672174930573,
-        0.025675883516669273
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1794132172750773,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.01989114098250866,
-        -0.11547210067510605,
-        0.01714838668704033
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1876115028992604,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.049993060529232025,
-        -0.13820135593414307,
-        0.024126213043928146
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1631119802843952,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.05808224529027939,
-        -0.11803607642650604,
-        0.01464097760617733
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1613074043881302,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.026433540508151054,
-        -0.07036919891834259,
-        0.07067731022834778
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1444326838813534,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.011829021386802197,
-        -0.09469415992498398,
-        0.054446011781692505
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1677143759242183,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.043521683663129807,
-        -0.0761135146021843,
-        0.04341110587120056
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1494242494305107,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.022343827411532402,
-        -0.1289067566394806,
-        0.06824373453855515
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1541914318870046,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.013344871811568737,
-        -0.10299716889858246,
-        0.0860247015953064
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1473941008399176,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.04344679042696953,
-        -0.12572641670703888,
-        0.09300252795219421
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1220167701702173,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.06053493171930313,
-        -0.13147073984146118,
-        0.065736323595047
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1271076517917562,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.07513944804668427,
-        -0.1071457713842392,
-        0.08196762204170227
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1029691727266313,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.07362359762191772,
-        -0.09884276241064072,
-        0.05038893222808838
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1240927582053424,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.06462464481592178,
-        -0.07293316721916199,
-        0.06816990673542023
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1171123014164037,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.03697540983557701,
-        -0.0636385828256607,
-        0.11228742450475693
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1097561767361221,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.028886226937174797,
-        -0.08380385488271713,
-        0.1217726618051529
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1116444339947662,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.04749022051692009,
-        -0.09785117954015732,
-        0.12608514726161957
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0955180149484025,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.06707733124494553,
-        -0.08636783063411713,
-        0.11926525086164474
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0834975928098083,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.060578882694244385,
-        -0.06522320955991745,
-        0.11073775589466095
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0924159878839703,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.31591135263442993,
-        -0.04071080684661865,
-        0.14152474701404572
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.3887222656632054,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.32284241914749146,
-        -0.11179500073194504,
-        0.12560659646987915
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.4062537660150962,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.35274791717529297,
-        -0.05623995512723923,
-        0.16267049312591553
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.412158668747233,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.35703158378601074,
-        -0.10017254203557968,
-        0.1528325080871582
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.4228408092414475,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.2974289357662201,
-        -0.07504568994045258,
-        0.11861815303564072
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.3850141737350175,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.2636868953704834,
-        -0.03684235364198685,
-        0.20545469224452972
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.3127706272563417,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.2337813824415207,
-        -0.09239740669727325,
-        0.16839079558849335
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.3064166231265977,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.21292772889137268,
-        -0.06878652423620224,
-        0.22205889225006104
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.2613703795588729,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.26824674010276794,
-        -0.04998078942298889,
-        0.26611125469207764
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.2911168649750824,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.32328957319259644,
-        -0.06196921318769455,
-        0.2396690547466278
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.3526190246948855,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.30936697125434875,
-        -0.10944252461194992,
-        0.27741900086402893
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.3277459420595061,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.33022063970565796,
-        -0.13305340707302094,
-        0.22375088930130005
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.3706124281426262,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.27946144342422485,
-        -0.16499757766723633,
-        0.24035510420799255
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.3214638848820612,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.2749016284942627,
-        -0.1518591344356537,
-        0.17969855666160583
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.3426283033137842,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.2198587954044342,
-        -0.13987071812152863,
-        0.20614075660705566
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.280646424043334,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.2203059196472168,
-        -0.09004493057727814,
-        0.3202032148838043
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.227829750424215,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.1861167550086975,
-        -0.1016673892736435,
-        0.29297730326652527
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.2085692015604024,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.24571941792964935,
-        -0.1267942488193512,
-        0.32719165086746216
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.25173923075683,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.22723698616027832,
-        -0.16112911701202393,
-        0.30428504943847656
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.2476241786909845,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.1904004067182541,
-        -0.14559997618198395,
-        0.28313931822776794
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.2210337473404183,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4149641692638397,
-        -0.0442599356174469,
-        0.3006170988082886
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2912654107551562,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4270351827144623,
-        -0.0697445198893547,
-        0.2826964855194092
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3059493862653733,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4016346335411072,
-        -0.09019263833761215,
-        0.2754168212413788
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3216374837288165,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.38210344314575195,
-        -0.048957742750644684,
-        0.30441296100616455
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2980824249762224,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.3738652467727661,
-        -0.0773455798625946,
-        0.2888384461402893
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.316838745071364,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4331236481666565,
-        -0.057362042367458344,
-        0.35073035955429077
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2385843986870981,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4114859104156494,
-        -0.07015736401081085,
-        0.3854980170726776
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2129593893421156,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.37995368242263794,
-        -0.06496309489011765,
-        0.3568723201751709
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2500607598707083,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.45641764998435974,
-        -0.09094414114952087,
-        0.36378154158592224
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2213747324682895,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.45265477895736694,
-        -0.09859693050384521,
-        0.3217341899871826
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2632493550155561,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.41155585646629333,
-        -0.13168257474899292,
-        0.30995553731918335
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.289378612223635,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4430880546569824,
-        -0.13687683641910553,
-        0.33858126401901245
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2534416064242915,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.38991814851760864,
-        -0.14447788894176483,
-        0.3447231948375702
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2647831200717399,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.3666240870952606,
-        -0.1108957827091217,
-        0.3316720128059387
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2814098082584766,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.3703870177268982,
-        -0.10324299335479736,
-        0.37371933460235596
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2401486532368653,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.42140716314315796,
-        -0.11164730042219162,
-        0.4200367331504822
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.1803300762206086,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.44917652010917664,
-        -0.12449435889720917,
-        0.40661510825157166
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.185681276935744,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4409382939338684,
-        -0.1528821885585785,
-        0.391040563583374
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2061868819093793,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.40807756781578064,
-        -0.15757998824119568,
-        0.39483642578125
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.213481904077493,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.3960065543651581,
-        -0.13209541141986847,
-        0.4127570390701294
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.1976647878430866,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.14058585464954376,
-        -0.020923582836985588,
-        0.3711177706718445
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.131557223016622,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.14805719256401062,
-        -0.04854537174105644,
-        0.34954553842544556
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1475804842907067,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.11751477420330048,
-        -0.05904927849769592,
-        0.33402150869369507
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1263745992713334,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.10542605817317963,
-        -0.0143560990691185,
-        0.3689262866973877
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.099831993745049,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.09116719663143158,
-        -0.03791908174753189,
-        0.34599947929382324
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.09653912192855,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.14005795121192932,
-        -0.060980867594480515,
-        0.44062086939811707
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.108182100996484,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.15214666724205017,
-        -0.10567405819892883,
-        0.40571603178977966
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1345292278474566,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.14720281958580017,
-        -0.11335965245962143,
-        0.46200379729270935
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1123762601711749,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.12413173913955688,
-        -0.1514853537082672,
-        0.42490753531455994
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.1071038075321158,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.10272802412509918,
-        -0.12266954779624939,
-        0.3805977702140808
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0996058037972603,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.06724174320697784,
-        -0.14085905253887177,
-        0.42136150598526
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0541042498896582,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.060096871107816696,
-        -0.08848027884960175,
-        0.3999785780906677
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0496772027788241,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.08316794037818909,
-        -0.05035458132624626,
-        0.43707484006881714
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0552366604116195,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.0551530085504055,
-        -0.09616586565971375,
-        0.4562663435935974
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.025693193481727,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.10457167029380798,
-        -0.07917037606239319,
-        0.48138460516929626
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0630476669541402,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.10187363624572754,
-        -0.18748383224010468,
-        0.4930560290813446
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0706274080973153,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.11613249778747559,
-        -0.16392084956169128,
-        0.5159828662872314
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0739998004765965,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.0667138397693634,
-        -0.18091635406017303,
-        0.4908646047115326
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0370398927391387,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.05924249440431595,
-        -0.15329456329345703,
-        0.5124368667602539
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0192803269577513,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.08978492021560669,
-        -0.14279064536094666,
-        0.5279608964920044
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0426666584850208,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5266438722610474,
-        -0.025031324476003647,
-        0.11737994849681854
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.4410609357087014,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5275446772575378,
-        -0.11150117218494415,
-        0.09009688347578049
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.471692390551606,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5568801164627075,
-        -0.07221589982509613,
-        0.1172390729188919
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.4373170830873383,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4791783094406128,
-        -0.08859601616859436,
-        0.07346310466527939
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.4961470626814142,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.47862181067466736,
-        -0.03515496477484703,
-        0.09032498300075531
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.4776039988562262,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.49394679069519043,
-        -0.025697018951177597,
-        0.21153715252876282
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3558556691727401,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.42571648955345154,
-        -0.03623201325535774,
-        0.24267451465129852
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3433211815061479,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.41624507308006287,
-        -0.04207715019583702,
-        0.1677611768245697
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.4180691336403333,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5039747953414917,
-        -0.07329294085502625,
-        0.2695886194705963
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2988758255868444,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5428696870803833,
-        -0.10204322636127472,
-        0.2113090455532074
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3494106676415383,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.49540412425994873,
-        -0.16560792922973633,
-        0.16739222407341003
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.408086855264199,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5048756003379822,
-        -0.15976279973983765,
-        0.24230556190013885
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3327792345470615,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.42717382311820984,
-        -0.17614291608333588,
-        0.19852958619594574
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3960214047507369,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.41714584827423096,
-        -0.12854699790477753,
-        0.14047811925411224
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.449186628042235,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.37825095653533936,
-        -0.09979671239852905,
-        0.19875769317150116
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.402252199258111,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.44194233417510986,
-        -0.11324390769004822,
-        0.33660364151000977
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2532963937126973,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.3935759961605072,
-        -0.09033876657485962,
-        0.31996986269950867
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.281924115106187,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4424988627433777,
-        -0.16668497025966644,
-        0.31974175572395325
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2751055752354268,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.3944767713546753,
-        -0.17680859565734863,
-        0.29268679022789
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3162641590077777,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.3642405867576599,
-        -0.12962403893470764,
-        0.29282766580581665
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3203511789683107,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8203873038291931,
-        0.0010560695081949234,
-        0.49170899391174316
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.3184721416808456,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8203821182250977,
-        -0.04482051730155945,
-        0.4921458959579468
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.3211940031245313,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8037195205688477,
-        -0.021882224828004837,
-        0.4917282462120056
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.32412740944260193,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8473482131958008,
-        -0.03605891391634941,
-        0.4923848509788513
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.3136263920817766,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8473514914512634,
-        -0.0077055334113538265,
-        0.492114782333374
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.3119061977879418,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8148517608642578,
-        -0.05826210230588913,
-        0.5694016218185425
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.2534328894550044,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.7947710752487183,
-        -0.043631091713905334,
-        0.6167306900024414
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.21778965871423603,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.7878908514976501,
-        -0.021147120743989944,
-        0.5687258243560791
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.2594055069600526,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8383998274803162,
-        -0.05780778452754021,
-        0.6173872947692871
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.20182977544246017,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8584837913513184,
-        -0.044085413217544556,
-        0.5697882175445557
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.2376028170595471,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8584889769554138,
-        0.001791173592209816,
-        0.569351315498352
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.23391026951500654,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8653692007064819,
-        -0.020692801102995872,
-        0.6173562407493591
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.18669530227384107,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8148602247238159,
-        0.01596786454319954,
-        0.5686947107315063
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.24781258632778594,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8384082317352295,
-        0.01642218418419361,
-        0.616680383682251
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.19472574895169414,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.794776201248169,
-        0.0022454927675426006,
-        0.6162937879562378
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.2137551625275699,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8059085607528687,
-        -0.0341343879699707,
-        0.6939672231674194
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.14918812096019662,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.832872748374939,
-        -0.04289598762989044,
-        0.6943730115890503
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.13460330586359154,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8495405912399292,
-        -0.01995769701898098,
-        0.6943538188934326
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.12034932535148178,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8328778743743896,
-        0.002980596851557493,
-        0.6939361095428467
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.12797256863849044,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.8059117197990417,
-        -0.005781006067991257,
-        0.6936971545219421
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 0.1455371605775526,
-      "assigned_bone": "thumb3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.38849836587905884,
-        0.01049871277064085,
-        1.5543655157089233
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.2632653228310588,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.38847166299819946,
-        -0.03521493077278137,
-        1.5504779815673828
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.26856944303723873,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.37181898951530457,
-        -0.012358109466731548,
-        1.5525362491607666
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.2747670291833774,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.41544318199157715,
-        -0.026484448462724686,
-        1.5510351657867432
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.2527054754636182,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.4154597222805023,
-        0.0017682285979390144,
-        1.5534379482269287
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.2492319341165633,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.38438543677330017,
-        -0.055881939828395844,
-        1.626213550567627
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.218927110558547,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.3652071952819824,
-        -0.04579796642065048,
-        1.6750792264938354
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.2042435643741351,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.3574405908584595,
-        -0.018898777663707733,
-        1.6295440196990967
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.2310360128645585,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.4088314175605774,
-        -0.059924300760030746,
-        1.673578143119812
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.17343173210759993,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.4280261695384979,
-        -0.04175560176372528,
-        1.627115249633789
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.1858729167556255,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.4280528724193573,
-        0.003958043642342091,
-        1.6310029029846191
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.17812290890364987,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.43581947684288025,
-        -0.022941142320632935,
-        1.6765379905700684
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.14165317996341611,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.3844286799430847,
-        0.018084382638335228,
-        1.632503867149353
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.20824180520444682,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.40887460112571716,
-        0.014042017981410027,
-        1.679868459701538
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.15973147184289635,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.3652338981628418,
-        -8.432070899289101e-05,
-        1.6789668798446655
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.19721678477234358,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.3778003454208374,
-        -0.043608151376247406,
-        1.7526443004608154
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.16947815842185454,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.40476173162460327,
-        -0.052338629961013794,
-        1.7517164945602417
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.1467338725070595,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.42144107818603516,
-        -0.029481811448931694,
-        1.7535457611083984
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.12386496595228026,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.40478837490081787,
-        -0.006624989211559296,
-        1.7556041479110718
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.13678402023874253,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.3778168559074402,
-        -0.015355473384261131,
-        1.7550468444824219
-      ],
-      "nearest_finger": "index",
-      "tip_distance": 0.16425401812442,
-      "assigned_bone": "index3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.07905608415603638,
-        -0.04370081424713135,
-        1.7018541097640991
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.26617276200660905,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.07905733585357666,
-        0.0021777960937470198,
-        1.7019259929656982
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.26250166657975676,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.09572058171033859,
-        -0.020761508494615555,
-        1.701598882675171
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.2690904266287579,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.05209413170814514,
-        -0.006584193091839552,
-        1.7023835182189941
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.25530499433597853,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.05209335684776306,
-        -0.03493882715702057,
-        1.7023390531539917
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.25764345660735166,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.08501029014587402,
-        -0.057999178767204285,
-        1.7789243459701538
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.20155808553463603,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.10535486042499542,
-        -0.04389667510986328,
-        1.826301097869873
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.16995519415528806,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.11197426915168762,
-        -0.020882554352283478,
-        1.7785110473632812
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.20773239774469543,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.06172763556241989,
-        -0.058073993772268295,
-        1.8270413875579834
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.1511793355308332,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.04138384759426117,
-        -0.04382186383008957,
-        1.7797091007232666
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.18274735335342862,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.04138510301709175,
-        0.0020567509345710278,
-        1.7797811031341553
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.17735764785104857,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.03476569056510925,
-        -0.02095736563205719,
-        1.827570915222168
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.13110249590432752,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.08501233160495758,
-        0.01623406633734703,
-        1.7790406942367554
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.1936112968437314,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.06172966957092285,
-        0.016159256920218468,
-        1.827157735824585
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.14040961064432195,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.1053561195731163,
-        0.0019819396547973156,
-        1.8263729810714722
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.16414610613976907,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.09464582055807114,
-        -0.03525573015213013,
-        1.903698444366455
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.11205424444805447,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.06768262386322021,
-        -0.044017717242240906,
-        1.9041560888290405
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.09396617337092737,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.05101938173174858,
-        -0.021078411489725113,
-        1.9044831991195679
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.07298682758143359,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.0676838755607605,
-        0.00186089426279068,
-        1.9042279720306396
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.082998843494101,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.09464660286903381,
-        -0.006901094224303961,
-        1.903742790222168
-      ],
-      "nearest_finger": "middle",
-      "tip_distance": 0.1065676212308124,
-      "assigned_bone": "middle3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4905799329280853,
-        -0.004394156858325005,
-        1.5707423686981201
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.20160878543584645,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4905868470668793,
-        -0.05018160864710808,
-        1.5736339092254639
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.204958679973063,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5072497129440308,
-        -0.027287883684039116,
-        1.5721485614776611
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.20573956027842283,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.46361851692199707,
-        -0.04143702983856201,
-        1.573145866394043
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.20031755488860198,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.46361422538757324,
-        -0.013138736598193645,
-        1.5713589191436768
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.19820528032944504,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4953788220882416,
-        -0.059466101229190826,
-        1.6515476703643799
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.13802596982733922,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5150035619735718,
-        -0.04231042414903641,
-        1.6982154846191406
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.10275964059112101,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5223402380943298,
-        -0.02242322638630867,
-        1.6491440534591675
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.13989356196225647,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4713723063468933,
-        -0.056459568440914154,
-        1.6992130279541016
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.09142106124198414,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.45174330472946167,
-        -0.04531695693731308,
-        1.6507580280303955
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.12652167676022902,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4517364501953125,
-        0.0004705016908701509,
-        1.6478664875030518
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.12101973599506936,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4443996846675873,
-        -0.019416695460677147,
-        1.696937918663025
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.07506756916166184,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.49536770582199097,
-        0.014619648456573486,
-        1.6468690633773804
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.1297978100288694,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4713611602783203,
-        0.01762617938220501,
-        1.6945343017578125
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.07844827068450287,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5149966478347778,
-        0.0034770320635288954,
-        1.6953239440917969
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.09590403489240923,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5031257271766663,
-        -0.028701184317469597,
-        1.7747230529785156
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.057586166107225875,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4761600196361542,
-        -0.03744576498866081,
-        1.7753396034240723
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.04422015239613749,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.45949023962020874,
-        -0.014552037231624126,
-        1.7739334106445312
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.016514189604425352,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4761531352996826,
-        0.00834169052541256,
-        1.7724480628967285
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.02436115992845063,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5031214952468872,
-        -0.0004028895345982164,
-        1.772936224937439
-      ],
-      "nearest_finger": "ring",
-      "tip_distance": 0.04974367957450047,
-      "assigned_bone": "ring3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8248609900474548,
-        -0.041227277368307114,
-        1.3011808395385742
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.23513538289892763,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8249308466911316,
-        0.004635912831872702,
-        1.3023704290390015
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.23036240433749866,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8415336608886719,
-        -0.018295681104063988,
-        1.3007997274398804
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.23478820618493862,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.7979966998100281,
-        -0.0041231317445635796,
-        1.303722620010376
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.2279418806591966,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.7979535460472107,
-        -0.03246823325753212,
-        1.3029873371124268
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.23093440070388863,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8339564800262451,
-        -0.05740460008382797,
-        1.3775699138641357
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.16736120448413813,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8562507033348083,
-        -0.04447106644511223,
-        1.424399733543396
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.12791854049078866,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.860933780670166,
-        -0.020300451666116714,
-        1.3769530057907104
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.1665710881938237,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8126705884933472,
-        -0.05864361673593521,
-        1.426587462425232
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.12069923477820084,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.7904194593429565,
-        -0.04323204606771469,
-        1.3804926872253418
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.15761288315864716,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.7904893159866333,
-        0.002631144132465124,
-        1.381682276725769
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.15039947856457744,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.7858061790466309,
-        -0.021539470180869102,
-        1.4291290044784546
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.10600594411185035,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8340694308280945,
-        0.016803694888949394,
-        1.3794946670532227
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.15625238854475065,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8127834796905518,
-        0.015564675442874432,
-        1.4285120964050293
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.10475380941007305,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8563205599784851,
-        0.0013921249192208052,
-        1.4255893230438232
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.11891738083016683,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8487433195114136,
-        -0.037716787308454514,
-        1.5023596286773682
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.06649676108102467,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8218091726303101,
-        -0.046475835144519806,
-        1.5037115812301636
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.057554731675107496,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.805206298828125,
-        -0.02354423701763153,
-        1.5052824020385742
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.03540955551541934,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.8218790292739868,
-        -0.0006126438966020942,
-        1.5049011707305908
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.03302625322647828,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.848786473274231,
-        -0.009371688589453697,
-        1.5030946731567383
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 0.055214751562811394,
-      "assigned_bone": "pinky3R"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.13255196809768677,
-        -0.1021856814622879,
-        0.03591454029083252
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0914923455604875,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.13189280033111572,
-        -0.12744534015655518,
-        0.04096914455294609
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0910992193242022,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.1524880826473236,
-        -0.13323143124580383,
-        0.05533565208315849
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0672157450019835,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.15355463325977325,
-        -0.09236057102680206,
-        0.0471571609377861
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0678660318946263,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.16587571799755096,
-        -0.11154787987470627,
-        0.059159986674785614
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0525917060939685,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.1295313537120819,
-        -0.06988689303398132,
-        0.09064727276563644
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.053585972238894,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.12700530886650085,
-        -0.07518474012613297,
-        0.12952861189842224
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0301655884651726,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.14946746826171875,
-        -0.10093262791633606,
-        0.11006838083267212
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0284149220589651,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.09368155896663666,
-        -0.065822534263134,
-        0.10628317296504974
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0698819392993668,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.09554843604564667,
-        -0.08578433841466904,
-        0.07245643436908722
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0920584197760785,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.09448188543319702,
-        -0.1266551911830902,
-        0.08063492178916931
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0914225021755128,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.07201972603797913,
-        -0.10090729594230652,
-        0.10009515285491943
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0930722819176948,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.09195584058761597,
-        -0.13195304572582245,
-        0.1195162683725357
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0688315477895685,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.12780563533306122,
-        -0.13601739704608917,
-        0.1038803681731224
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0525192941623864,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.1259387731552124,
-        -0.11605559289455414,
-        0.13770711421966553
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.029491475835448,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.06899911165237427,
-        -0.06860850751399994,
-        0.15482789278030396
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0587581068364589,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.08959439396858215,
-        -0.0743945986032486,
-        0.16919438540935516
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0341279430700412,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.05561147630214691,
-        -0.0902920514345169,
-        0.15100355446338654
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0732981074571672,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.06793256103992462,
-        -0.10947936028242111,
-        0.16300638020038605
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0581022490490706,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        -0.0889352411031723,
-        -0.09965424984693527,
-        0.17424899339675903
-      ],
-      "nearest_finger": "thumb",
-      "tip_distance": 1.0337129576233408,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5101338028907776,
-        -0.11653562635183334,
-        0.22432902455329895
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.34459361739919,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.522257387638092,
-        -0.17426149547100067,
-        0.26311081647872925
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3106818492076906,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5413894653320312,
-        -0.14069399237632751,
-        0.24284669756889343
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3224142855944048,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4791770875453949,
-        -0.17084911465644836,
-        0.2571170926094055
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3258756150756006,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.4716843068599701,
-        -0.13517245650291443,
-        0.23314854502677917
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.3466986661075773,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.5282094478607178,
-        -0.1552136242389679,
-        0.3293099105358124
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2428796792020422,
-      "assigned_bone": "handR"
-    },
-    {
-      "vertices": 3,
-      "centroid": [
-        0.48880788683891296,
-        -0.14002883434295654,
-        0.3642294406890869
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2168328270721334,
-      "assigned_bone": "handR"
     },
     {
-      "vertices": 3,
-      "centroid": [
-        0.4585042893886566,
-        -0.1496920883655548,
-        0.31961172819137573
-      ],
-      "nearest_finger": "pinky",
-      "tip_distance": 1.2686874886907447,
-      "assigned_bone": "handR"
+      "name": "ring0R",
+      "parent": "handR",
+      "deform": true,
+      "head": [
+        0.07930167019367218,
+        0.7248373031616211,
+        1.6822303533554077
+      ],
+      "tail": [
+        -0.07898691296577454,
+        0.7874614000320435,
+        3.377412796020508
+      ]
+    },
+    {
+      "name": "ring1R",
+      "parent": "ring0R",
+      "deform": true,
+      "head": [
+        -0.29626280069351196,
+        0.8734226226806641,
+        5.704316139221191
+      ],
+      "tail": [
+        -0.264041543006897,
+        0.8860551714897156,
+        6.776058197021484
+      ]
+    },
+    {
+      "name": "ring2R",
+      "parent": "ring1R",
+      "deform": true,
+      "head": [
+        -0.21981269121170044,
+        0.9033956527709961,
+        8.2471923828125
+      ],
+      "tail": [
+        -0.2101784348487854,
+        0.9039003849029541,
+        8.856537818908691
+      ]
+    },
+    {
+      "name": "ring3R",
+      "parent": "ring2R",
+      "deform": true,
+      "head": [
+        -0.19695396721363068,
+        0.9045929908752441,
+        9.692960739135742
+      ],
+      "tail": [
+        -0.20734216272830963,
+        0.8908923864364624,
+        10.302140235900879
+      ]
+    },
+    {
+      "name": "middle0R",
+      "parent": "handR",
+      "deform": true,
+      "head": [
+        0.07930170744657516,
+        0.7248371839523315,
+        1.6822302341461182
+      ],
+      "tail": [
+        -0.13161331415176392,
+        1.2725399732589722,
+        3.3723649978637695
+      ]
+    },
+    {
+      "name": "middle1R",
+      "parent": "middle0R",
+      "deform": true,
+      "head": [
+        -0.4211271107196808,
+        2.0243470668792725,
+        5.6923394203186035
+      ],
+      "tail": [
+        -0.35704728960990906,
+        2.1653857231140137,
+        6.858360290527344
+      ]
+    },
+    {
+      "name": "middle2R",
+      "parent": "middle1R",
+      "deform": true,
+      "head": [
+        -0.2690877318382263,
+        2.358983278274536,
+        8.458907127380371
+      ],
+      "tail": [
+        -0.23262476921081543,
+        2.4345362186431885,
+        9.186117172241211
+      ]
+    },
+    {
+      "name": "middle3R",
+      "parent": "middle2R",
+      "deform": true,
+      "head": [
+        -0.18257367610931396,
+        2.5382449626922607,
+        10.184326171875
+      ],
+      "tail": [
+        -0.14098256826400757,
+        2.6262855529785156,
+        10.9098539352417
+      ]
+    },
+    {
+      "name": "index0R",
+      "parent": "handR",
+      "deform": true,
+      "head": [
+        0.07930164039134979,
+        0.724837064743042,
+        1.682229995727539
+      ],
+      "tail": [
+        -0.0847124457359314,
+        1.7276737689971924,
+        3.2581393718719482
+      ]
+    },
+    {
+      "name": "index1R",
+      "parent": "index0R",
+      "deform": true,
+      "head": [
+        -0.30984732508659363,
+        3.10422420501709,
+        5.421321868896484
+      ],
+      "tail": [
+        -0.21674087643623352,
+        3.4539690017700195,
+        6.526684761047363
+      ]
+    },
+    {
+      "name": "index2R",
+      "parent": "index1R",
+      "deform": true,
+      "head": [
+        -0.08893774449825287,
+        3.9340484142303467,
+        8.04396915435791
+      ],
+      "tail": [
+        -0.0545935295522213,
+        4.046375751495361,
+        8.58387565612793
+      ]
+    },
+    {
+      "name": "index3R",
+      "parent": "index2R",
+      "deform": true,
+      "head": [
+        -0.007450787350535393,
+        4.200562477111816,
+        9.324981689453125
+      ],
+      "tail": [
+        0.028673889115452766,
+        4.311300754547119,
+        9.865099906921387
+      ]
+    },
+    {
+      "name": "thumb0R",
+      "parent": "handR",
+      "deform": true,
+      "head": [
+        0.07930167019367218,
+        0.7248371243476868,
+        1.6822304725646973
+      ],
+      "tail": [
+        -0.08732660114765167,
+        1.879478931427002,
+        1.8938887119293213
+      ]
+    },
+    {
+      "name": "thumb1R",
+      "parent": "thumb0R",
+      "deform": true,
+      "head": [
+        -0.31605005264282227,
+        3.4644057750701904,
+        2.184422016143799
+      ],
+      "tail": [
+        -0.1687343716621399,
+        3.993687868118286,
+        2.538092613220215
+      ]
+    },
+    {
+      "name": "thumb2R",
+      "parent": "thumb1R",
+      "deform": true,
+      "head": [
+        0.033479489386081696,
+        4.720210075378418,
+        3.023561716079712
+      ],
+      "tail": [
+        0.053145743906497955,
+        5.16967248916626,
+        3.5089173316955566
+      ]
+    },
+    {
+      "name": "thumb3R",
+      "parent": "thumb2R",
+      "deform": true,
+      "head": [
+        0.080140620470047,
+        5.786630153656006,
+        4.175143718719482
+      ],
+      "tail": [
+        0.08929978311061859,
+        6.177684307098389,
+        4.70896577835083
+      ]
     }
   ],
   "pose_tests": [
     {
       "finite_vertices": true,
       "bounds_min": [
-        -0.8722034096717834,
-        -0.22540068626403809,
-        -0.19414445757865906
+        -2.964484930038452,
+        -4.297924995422363,
+        -0.17701150476932526
       ],
       "bounds_max": [
-        0.8722034096717834,
-        0.22540068626403809,
-        1.9630162715911865
+        2.4864425659179688,
+        12.502276420593262,
+        22.98167610168457
       ],
       "dimensions": [
-        1.744406819343567,
-        0.45080137252807617,
-        2.157160758972168
+        5.450927734375,
+        16.800201416015625,
+        23.158687591552734
       ],
-      "vertex_count": 4416,
-      "polygon_count": 7600,
+      "vertex_count": 5248,
+      "polygon_count": 4370,
       "pose": "01_extended",
       "frame": 1,
       "image": "pose_tests/01_extended.png"
@@ -3091,22 +375,22 @@
     {
       "finite_vertices": true,
       "bounds_min": [
-        -0.7863317728042603,
-        -0.8660966157913208,
-        -0.19414445757865906
+        -2.964484930038452,
+        -7.516598224639893,
+        -0.17701150476932526
       ],
       "bounds_max": [
-        0.8052405118942261,
-        0.22540068626403809,
-        1.4486775398254395
+        2.4864425659179688,
+        9.745085716247559,
+        20.45950698852539
       ],
       "dimensions": [
-        1.5915722846984863,
-        1.0914973020553589,
-        1.642822027206421
+        5.450927734375,
+        17.26168441772461,
+        20.636518478393555
       ],
-      "vertex_count": 4416,
-      "polygon_count": 7600,
+      "vertex_count": 5248,
+      "polygon_count": 4370,
       "pose": "02_soft_curl",
       "frame": 2,
       "image": "pose_tests/02_soft_curl.png"
@@ -3114,22 +398,22 @@
     {
       "finite_vertices": true,
       "bounds_min": [
-        -0.745004415512085,
-        -0.7602300047874451,
-        -0.19414445757865906
+        -2.964484930038452,
+        -6.912614822387695,
+        -0.17701150476932526
       ],
       "bounds_max": [
-        0.7389974594116211,
-        0.22540068626403809,
-        1.0584518909454346
+        3.7103428840637207,
+        8.65140151977539,
+        16.218273162841797
       ],
       "dimensions": [
-        1.484001874923706,
-        0.9856306910514832,
-        1.252596378326416
+        6.674827575683594,
+        15.564016342163086,
+        16.39528465270996
       ],
-      "vertex_count": 4416,
-      "polygon_count": 7600,
+      "vertex_count": 5248,
+      "polygon_count": 4370,
       "pose": "03_fist",
       "frame": 3,
       "image": "pose_tests/03_fist.png"
@@ -3137,22 +421,22 @@
     {
       "finite_vertices": true,
       "bounds_min": [
-        -0.6813094615936279,
-        -0.530756413936615,
-        -0.19414445757865906
+        -2.964484930038452,
+        -4.297924995422363,
+        -0.17701150476932526
       ],
       "bounds_max": [
-        0.8722034096717834,
-        0.22540068626403809,
-        1.9630162715911865
+        3.608970880508423,
+        8.193049430847168,
+        22.98167610168457
       ],
       "dimensions": [
-        1.5535128116607666,
-        0.7561571002006531,
-        2.157160758972168
+        6.573455810546875,
+        12.490974426269531,
+        23.158687591552734
       ],
-      "vertex_count": 4416,
-      "polygon_count": 7600,
+      "vertex_count": 5248,
+      "polygon_count": 4370,
       "pose": "04_thumb",
       "frame": 4,
       "image": "pose_tests/04_thumb.png"
@@ -3160,22 +444,22 @@
     {
       "finite_vertices": true,
       "bounds_min": [
-        -0.8722034096717834,
-        -0.6828067898750305,
-        -0.19414445757865906
+        -2.964484930038452,
+        -4.297924995422363,
+        -0.17701150476932526
       ],
       "bounds_max": [
-        0.8722034096717834,
-        0.22540068626403809,
-        1.9630162715911865
+        2.4864425659179688,
+        12.502276420593262,
+        22.98167610168457
       ],
       "dimensions": [
-        1.744406819343567,
-        0.9082074761390686,
-        2.157160758972168
+        5.450927734375,
+        16.800201416015625,
+        23.158687591552734
       ],
-      "vertex_count": 4416,
-      "polygon_count": 7600,
+      "vertex_count": 5248,
+      "polygon_count": 4370,
       "pose": "05_index",
       "frame": 5,
       "image": "pose_tests/05_index.png"
@@ -3183,22 +467,22 @@
     {
       "finite_vertices": true,
       "bounds_min": [
-        -0.8722034096717834,
-        -0.7786280512809753,
-        -0.19414445757865906
+        -2.964484930038452,
+        -5.7201457023620605,
+        -0.17701150476932526
       ],
       "bounds_max": [
-        0.8722034096717834,
-        0.22540068626403809,
-        1.8327224254608154
+        2.4864425659179688,
+        12.502276420593262,
+        21.664148330688477
       ],
       "dimensions": [
-        1.744406819343567,
-        1.0040287971496582,
-        2.026866912841797
+        5.450927734375,
+        18.222421646118164,
+        21.84115982055664
       ],
-      "vertex_count": 4416,
-      "polygon_count": 7600,
+      "vertex_count": 5248,
+      "polygon_count": 4370,
       "pose": "06_middle",
       "frame": 6,
       "image": "pose_tests/06_middle.png"
@@ -3206,22 +490,22 @@
     {
       "finite_vertices": true,
       "bounds_min": [
-        -0.8722034096717834,
-        -0.7123510837554932,
-        -0.19414445757865906
+        -2.964484930038452,
+        -7.316603660583496,
+        -0.17701150476932526
       ],
       "bounds_max": [
-        0.7444791197776794,
-        0.22540068626403809,
-        1.9630162715911865
+        2.4864425659179688,
+        12.502276420593262,
+        22.98167610168457
       ],
       "dimensions": [
-        1.616682529449463,
-        0.9377517700195312,
-        2.157160758972168
+        5.450927734375,
+        19.818880081176758,
+        23.158687591552734
       ],
-      "vertex_count": 4416,
-      "polygon_count": 7600,
+      "vertex_count": 5248,
+      "polygon_count": 4370,
       "pose": "07_ring_pinky",
       "frame": 7,
       "image": "pose_tests/07_ring_pinky.png"
@@ -3229,22 +513,22 @@
     {
       "finite_vertices": true,
       "bounds_min": [
-        -0.7869677543640137,
-        -0.22540068626403809,
-        -0.19414445757865906
+        -2.964484930038452,
+        -4.311084270477295,
+        -0.17701150476932526
       ],
       "bounds_max": [
-        0.7080225348472595,
-        0.22540068626403809,
-        1.9595696926116943
+        2.741912841796875,
+        12.542874336242676,
+        22.94638442993164
       ],
       "dimensions": [
-        1.494990348815918,
-        0.45080137252807617,
-        2.153714179992676
+        5.706398010253906,
+        16.853958129882812,
+        23.123395919799805
       ],
-      "vertex_count": 4416,
-      "polygon_count": 7600,
+      "vertex_count": 5248,
+      "polygon_count": 4370,
       "pose": "08_splay",
       "frame": 8,
       "image": "pose_tests/08_splay.png"
@@ -3252,22 +536,22 @@
     {
       "finite_vertices": true,
       "bounds_min": [
-        -1.071205496788025,
-        -0.719628095626831,
-        -0.29329779744148254
+        -6.639985084533691,
+        -9.083642959594727,
+        -0.8518017530441284
       ],
       "bounds_max": [
-        0.450625479221344,
-        0.12726342678070068,
-        1.7871164083480835
+        2.313431739807129,
+        8.788494110107422,
+        22.65081214904785
       ],
       "dimensions": [
-        1.5218310356140137,
-        0.8468915224075317,
-        2.080414295196533
+        8.95341682434082,
+        17.87213706970215,
+        23.502613067626953
       ],
-      "vertex_count": 4416,
-      "polygon_count": 7600,
+      "vertex_count": 5248,
+      "polygon_count": 4370,
       "pose": "09_wrist",
       "frame": 9,
       "image": "pose_tests/09_wrist.png"

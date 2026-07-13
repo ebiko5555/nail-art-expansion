@@ -67,8 +67,15 @@ def verify(path: Path) -> dict:
     if missing:
         raise ValueError("Missing bones: " + ", ".join(missing))
     skins = document.get("skins", [])
-    if len(skins) != 1 or len(skins[0].get("joints", [])) != 17:
-        raise ValueError("Expected one skin with 17 joints")
+    if len(skins) != 1:
+        raise ValueError(f"Expected one skin, found {len(skins)}")
+    joint_names = {
+        document["nodes"][index].get("name")
+        for index in skins[0].get("joints", [])
+    }
+    missing_skin_bones = sorted(REQUIRED_BONES - joint_names)
+    if missing_skin_bones:
+        raise ValueError("Required bones are not skin joints: " + ", ".join(missing_skin_bones))
     meshes = document.get("meshes", [])
     if len(meshes) != 1:
         raise ValueError(f"Expected one mesh, found {len(meshes)}")

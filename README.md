@@ -1,6 +1,6 @@
 # Nail Editor — Art Expansion 手トラッキング版
 
-MediaPipe Handsの21ランドマークに、Blenderで自動リグ付けした水晶の手モデルを重ねるスマートフォン向け技術検証アプリです。
+MediaPipe Handsの21ランドマークに、解剖学的な比率のリグ付き手モデルを重ねるスマートフォン向け技術検証アプリです。肌の質感は使わず、既存の「水晶／痕跡」マテリアルへ置き換えて表示します。
 
 ## スマートフォンで使う
 
@@ -33,11 +33,15 @@ python3 -m http.server 8788
 
 ## Blenderで確認
 
-- `dist/rigged_hand.blend`: Rest Poseのリグ付きモデル
+- `dist/rigged_hand.blend`: 自然な開いた手のRest Pose
 - `dist/rigged_hand_test.blend`: 9ポーズのテストアクション付き
 - `dist/pose_tests/`: 自動ポーズの確認画像
 
-Blender 4.5.9 LTSで生成・検証しています。
+Blender 5.1.1で生成し、4.5以降で再生成できるスクリプトを同梱しています。
+
+## 手モデルの出典と利用条件
+
+手モデルは [Anatomically Accurate Rigged Hand Model for XR](https://sketchfab.com/3d-models/anatomically-accurate-rigged-hand-model-for-xr-86f37207468b427ead21e2eef820c06c) © 2026 Emma L. D. Lieker を使用しています。ライセンスは CC BY-NC 4.0（作者表記・非商用）です。研究・作品展示向けであり、商用利用には使えません。詳細は `THIRD_PARTY_NOTICES.md`を参照してください。
 
 ## GitHub Pages
 
