@@ -79,6 +79,26 @@
     display: flex; align-items: center; gap: 12px;
     margin-bottom: 10px;
   }
+  #art-picker {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+    margin-bottom: 14px;
+  }
+  .art-choice {
+    font-family: inherit; font-size: 11px; letter-spacing: .08em;
+    padding: 9px 6px; border-radius: 999px;
+    border: 1px solid rgba(61,61,61,.18);
+    background: rgba(255,255,255,.32); color: inherit;
+    cursor: pointer; transition: background .35s, border-color .35s, box-shadow .35s;
+  }
+  .art-choice[aria-pressed="true"] {
+    background: rgba(255,255,255,.68);
+    border-color: rgba(117,172,178,.75);
+    box-shadow: 0 0 18px rgba(118,190,196,.18);
+  }
+  body.art-mode .art-choice { border-color: rgba(255,255,255,.18); }
+  body.art-mode .art-choice[aria-pressed="true"] {
+    background: rgba(190,226,225,.12); border-color: rgba(190,226,225,.62);
+  }
   .slider-row label {
     width: 7.5em; font-size: 12px; letter-spacing: .05em;
     flex-shrink: 0;
@@ -176,6 +196,10 @@
   </div>
 
   <div id="panel">
+    <div id="art-picker" aria-label="アートモデル">
+      <button class="art-choice" data-art="crystal" aria-pressed="true">水晶</button>
+      <button class="art-choice" data-art="trace" aria-pressed="false">痕跡</button>
+    </div>
     <div class="slider-row">
       <label for="s-fusion">融合比率</label>
       <input type="range" id="s-fusion" min="0" max="100" value="60">
@@ -337,6 +361,42 @@ const nails = NAIL_SEGS.map(() => {
   return m;
 });
 handGroup.visible = false;
+
+// ---------- アートプリセット ----------
+// 造形を切り替える前段階として、同じ手追跡に異なる物質感を割り当てる。
+const ART_PRESETS = {
+  crystal: {
+    label: '水晶', color: 0xbfe3e8, nail: 0xf3cfe0, emissive: 0x66d0cc,
+    roughness: 0.12, transmission: 0.7, wireframe: false,
+  },
+  trace: {
+    label: '痕跡', color: 0xe7ddd0, nail: 0xffd6c9, emissive: 0xd7a889,
+    roughness: 0.72, transmission: 0.05, wireframe: true,
+  },
+};
+let activeArt = 'crystal';
+
+function selectArt(name) {
+  const preset = ART_PRESETS[name];
+  if (!preset) return;
+  activeArt = name;
+  crystalMat.color.setHex(preset.color);
+  crystalMat.emissive.setHex(preset.emissive);
+  crystalMat.wireframe = preset.wireframe;
+  nailMat.color.setHex(preset.nail);
+  nailMat.emissive.setHex(preset.emissive);
+  nailMat.wireframe = preset.wireframe;
+  document.querySelectorAll('.art-choice').forEach(button => {
+    button.setAttribute('aria-pressed', button.dataset.art === name ? 'true' : 'false');
+  });
+  revealStart = performance.now();
+  applySliders();
+  document.getElementById('hint').textContent = `${preset.label}の手：指先から物質が満ちていきます`;
+}
+
+document.querySelectorAll('.art-choice').forEach(button => {
+  button.addEventListener('click', () => selectArt(button.dataset.art));
+});
 
 // 出現演出：指先(seg=4)から手首(seg=0)へ結晶が満ちていく
 let revealStart = 0;
@@ -580,11 +640,12 @@ function applySliders() {
   veil.style.opacity = Math.max(0, (fusion - 0.55) / 0.45) * 0.92;
   document.body.classList.toggle('art-mode', fusion > 0.55);
 
-  crystalMat.transmission = trans;
-  crystalMat.roughness = 0.3 - trans * 0.25;
+  const preset = ART_PRESETS[activeArt];
+  crystalMat.transmission = preset.transmission * trans;
+  crystalMat.roughness = THREE.MathUtils.clamp(preset.roughness + (1 - trans) * 0.18, 0.04, 0.92);
   crystalMat.emissiveIntensity = glow * 2.2;
   nailMat.opacity = 0.3 + fusion * 0.7;
-  nailMat.transmission = 0.4 + trans * 0.6;
+  nailMat.transmission = preset.transmission * (0.45 + trans * 0.55);
   nailMat.emissiveIntensity = 0.2 + glow * 2.6;
   rim.intensity = 0.4 + glow * 2.0;
   // GLBモデルのマテリアルにも反映
@@ -612,6 +673,7 @@ function applySliders() {
   .forEach(control => control.addEventListener('input', applySliders));
 displayMode.addEventListener('change', applyDisplayMode);
 applySliders();
+selectArt('crystal');
 
 // ---------- MediaPipe Hands ----------
 const hands = new Hands({
