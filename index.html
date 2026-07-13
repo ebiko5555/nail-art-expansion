@@ -71,10 +71,34 @@
     border-top: 1px solid rgba(0,0,0,.06);
     transition: background 1.2s ease, border-color 1.2s ease;
   }
+  #panel-toggle {
+    display: block; margin: 0 0 12px auto;
+    min-width: 72px; padding: 8px 14px;
+    border: 1px solid rgba(80,80,80,.26); border-radius: 999px;
+    background: rgba(255,255,255,.68); color: inherit;
+    font-family: inherit; font-size: 11px; letter-spacing: .08em;
+    cursor: pointer;
+  }
+  body.art-mode #panel-toggle { background: rgba(20,22,28,.72); border-color: rgba(255,255,255,.24); }
+  #panel.is-collapsed {
+    left: auto; right: 14px; bottom: calc(14px + env(safe-area-inset-bottom));
+    width: auto; padding: 0; background: transparent; border: 0;
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+  }
+  body.art-mode #panel.is-collapsed { background: transparent; border: 0; }
+  #panel.is-collapsed > :not(#panel-toggle) { display: none; }
+  #panel.is-collapsed #panel-toggle { margin: 0; background: rgba(12,14,18,.58); color: #fff; border-color: rgba(255,255,255,.32); }
   body.art-mode #panel {
     background: rgba(18,20,26,.55);
     border-top: 1px solid rgba(255,255,255,.12);
   }
+  #panel:not(.is-collapsed) {
+    left: auto; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
+    width: min(390px, calc(100% - 24px));
+    max-height: min(58dvh, 520px); overflow-y: auto;
+    border: 1px solid rgba(0,0,0,.08); border-radius: 18px;
+  }
+  body.art-mode #panel:not(.is-collapsed) { border-color: rgba(255,255,255,.14); }
   .slider-row {
     display: flex; align-items: center; gap: 12px;
     margin-bottom: 10px;
@@ -197,7 +221,8 @@
     </div>
   </div>
 
-  <div id="panel">
+  <div id="panel" class="is-collapsed">
+    <button id="panel-toggle" type="button" aria-expanded="false">調整</button>
     <div id="art-picker" aria-label="アートモデル">
       <button class="art-choice" data-art="crystal" aria-pressed="true">水晶</button>
       <button class="art-choice" data-art="trace" aria-pressed="false">痕跡</button>
@@ -273,6 +298,14 @@ const offsetYControl = document.getElementById('s-offset-y');
 const depthControl = document.getElementById('s-depth');
 const smoothingControl = document.getElementById('s-smoothing');
 const curlControl = document.getElementById('s-curl');
+const panel = document.getElementById('panel');
+const panelToggle = document.getElementById('panel-toggle');
+
+panelToggle.addEventListener('click', () => {
+  const collapsed = panel.classList.toggle('is-collapsed');
+  panelToggle.textContent = collapsed ? '調整' : '閉じる';
+  panelToggle.setAttribute('aria-expanded', String(!collapsed));
+});
 
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
