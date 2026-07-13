@@ -103,6 +103,43 @@
   #hint {
     font-size: 11px; opacity: .6; letter-spacing: .05em; text-align: center;
   }
+  .mode-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    margin: 4px 0 10px;
+  }
+  .field label { display: block; font-size: 10px; opacity: .65; margin-bottom: 4px; }
+  .field select {
+    width: 100%; min-height: 34px; padding: 5px 9px;
+    border: 1px solid rgba(100,100,100,.25); border-radius: 8px;
+    background: rgba(255,255,255,.65); color: inherit; font-family: inherit;
+  }
+  body.art-mode .field select { background: rgba(20,22,28,.7); }
+  .advanced { margin: 2px 0 10px; font-size: 11px; }
+  .advanced summary { cursor: pointer; opacity: .72; letter-spacing: .06em; }
+  .advanced-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px;
+    margin-top: 9px;
+  }
+  .advanced-grid .slider-row { display: block; margin: 0; }
+  .advanced-grid .slider-row label { width: auto; margin-bottom: 3px; }
+  .advanced-grid .slider-row output { float: right; width: auto; }
+  .check-row { display: flex; align-items: center; gap: 7px; min-height: 34px; font-size: 11px; }
+  #bone-list {
+    grid-column: 1 / -1; max-height: 58px; overflow: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 9px; line-height: 1.5; opacity: .55;
+  }
+  @media (max-height: 720px) {
+    #panel { max-height: 46dvh; overflow-y: auto; }
+    .slider-row { margin-bottom: 7px; }
+  }
+  @media (max-width: 520px) {
+    #hud { align-items: flex-start; padding: 14px 18px; }
+    #hud h1 { width: 54%; font-size: 12px; line-height: 1.45; }
+    #hud > div { width: 44%; justify-content: flex-end; }
+    #status { font-size: 10px; line-height: 1.45; text-align: right; }
+    #flip-btn { padding: 5px 9px !important; font-size: 10px !important; }
+  }
   #start-overlay {
     position: absolute; inset: 0;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -154,6 +191,32 @@
       <input type="range" id="s-glow" min="0" max="100" value="40">
       <output id="o-glow">40%</output>
     </div>
+    <div class="mode-row">
+      <div class="field">
+        <label for="display-mode">表示モード</label>
+        <select id="display-mode">
+          <option value="overlay">カメラ＋3D手モデル</option>
+          <option value="camera">カメラ映像のみ</option>
+          <option value="model">3D手モデルのみ</option>
+          <option value="landmarks">MediaPipeランドマーク</option>
+          <option value="skeleton">骨表示デバッグ</option>
+        </select>
+      </div>
+      <label class="check-row"><input type="checkbox" id="mirror-toggle" checked> 鏡像表示</label>
+    </div>
+    <details class="advanced">
+      <summary>位置・追従の微調整</summary>
+      <div class="advanced-grid">
+        <div class="slider-row"><label for="s-model-scale">大きさ <output id="o-model-scale">100%</output></label><input type="range" id="s-model-scale" min="50" max="160" value="100"></div>
+        <div class="slider-row"><label for="s-model-opacity">透明度 <output id="o-model-opacity">90%</output></label><input type="range" id="s-model-opacity" min="10" max="100" value="90"></div>
+        <div class="slider-row"><label for="s-offset-x">左右位置 <output id="o-offset-x">0</output></label><input type="range" id="s-offset-x" min="-20" max="20" value="0"></div>
+        <div class="slider-row"><label for="s-offset-y">上下位置 <output id="o-offset-y">0</output></label><input type="range" id="s-offset-y" min="-20" max="20" value="0"></div>
+        <div class="slider-row"><label for="s-depth">奥行き <output id="o-depth">0</output></label><input type="range" id="s-depth" min="-100" max="100" value="0"></div>
+        <div class="slider-row"><label for="s-smoothing">平滑化 <output id="o-smoothing">55%</output></label><input type="range" id="s-smoothing" min="0" max="95" value="55"></div>
+        <div class="slider-row"><label for="s-curl">指の曲がり <output id="o-curl">100%</output></label><input type="range" id="s-curl" min="40" max="120" value="100"></div>
+        <div id="bone-list">骨モデルを読み込み中…</div>
+      </div>
+    </details>
     <div id="hint">カメラに手をかざすと、水晶の手が追従します</div>
   </div>
 
@@ -174,6 +237,15 @@ const video = document.getElementById('video');
 const veil = document.getElementById('veil');
 const statusEl = document.getElementById('status');
 const canvas = document.getElementById('three-canvas');
+const displayMode = document.getElementById('display-mode');
+const mirrorToggle = document.getElementById('mirror-toggle');
+const modelScaleControl = document.getElementById('s-model-scale');
+const modelOpacityControl = document.getElementById('s-model-opacity');
+const offsetXControl = document.getElementById('s-offset-x');
+const offsetYControl = document.getElementById('s-offset-y');
+const depthControl = document.getElementById('s-depth');
+const smoothingControl = document.getElementById('s-smoothing');
+const curlControl = document.getElementById('s-curl');
 
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -182,7 +254,8 @@ const scene = new THREE.Scene();
 const camera = new THREE.OrthographicCamera(0, 1, 0, 1, -10, 10);
 camera.position.z = 5;
 
-scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+const ambient = new THREE.AmbientLight(0xffffff, 0.7);
+scene.add(ambient);
 const key = new THREE.DirectionalLight(0xfff4e0, 1.2);
 key.position.set(0.3, -0.5, 2);
 scene.add(key);
@@ -281,7 +354,8 @@ const smoothed = Array.from({ length: 21 }, () => new THREE.Vector3());
 let hasPose = false;
 
 function updateHand(landmarks) {
-  const SMOOTH = 0.55; // 0=追従なし 1=生の値（ジッタ抑制）
+  // 高いほど安定するが遅れる。UIの「平滑化」を追従率へ変換する。
+  const SMOOTH = 1 - (smoothingControl.value / 100) * 0.88;
   const now = performance.now();
   if (!hasPose) revealStart = now; // 手が現れた瞬間から出現演出
   for (let i = 0; i < 21; i++) {
@@ -300,7 +374,7 @@ function updateHand(landmarks) {
 
   // GLBモデルがある場合：手のひらの位置・向き・大きさに合わせて配置
   if (glbModel) {
-    updateGlb(s);
+    updateGlb();
     return;
   }
 
@@ -327,41 +401,167 @@ function updateHand(landmarks) {
   });
 }
 
-// ---------- Blender GLBモデルの読み込み ----------
-// リポジトリに hand.glb を置くと、自動でプロシージャル水晶から差し替わる
+// ---------- Blender GLBモデルの読み込みとボーン追従 ----------
+const MP_BONE_MAP = {
+  thumb1R:[1,2], thumb2R:[2,3], thumb3R:[3,4],
+  index1R:[5,6], index2R:[6,7], index3R:[7,8],
+  middle1R:[9,10], middle2R:[10,11], middle3R:[11,12],
+  ring1R:[13,14], ring2R:[14,15], ring3R:[15,16],
+  pinky1R:[17,18], pinky2R:[18,19], pinky3R:[19,20],
+};
+const BONE_ORDER = Object.keys(MP_BONE_MAP);
 let glbModel = null;
 let glbMats = [];
-new THREE.GLTFLoader().load('hand.glb', gltf => {
-  glbModel = gltf.scene;
-  glbModel.traverse(o => {
-    if (o.isMesh && o.material) {
-      o.material.transparent = true;
-      glbMats.push(o.material);
-    }
-  });
-  // プロシージャルモデルを隠してGLBに切り替え
-  joints.forEach(j => j.visible = false);
-  bones.forEach(b => b.visible = false);
-  nails.forEach(n => n.visible = false);
-  handGroup.add(glbModel);
-  applySliders();
-  statusEl.textContent = 'Blenderモデル読み込み完了';
-}, undefined, () => { /* hand.glb 未設置ならプロシージャル水晶のまま */ });
+let skeletonHelper = null;
+let restPalmLength = 1;
+let restWristLocal = new THREE.Vector3();
+let restBasisInverse = new THREE.Quaternion();
+const boneBindings = new Map();
+const _basisX = new THREE.Vector3(), _basisY = new THREE.Vector3(), _basisZ = new THREE.Vector3();
+const _basisMatrix = new THREE.Matrix4(), _desiredRootQ = new THREE.Quaternion();
+const _parentQ = new THREE.Quaternion(), _desiredParentDir = new THREE.Vector3();
+const _rawDeltaQ = new THREE.Quaternion(), _deltaQ = new THREE.Quaternion();
+const _targetQ = new THREE.Quaternion(), _identityQ = new THREE.Quaternion();
+const _wristOffset = new THREE.Vector3();
 
-const _x = new THREE.Vector3(), _y = new THREE.Vector3(), _z = new THREE.Vector3();
-const _m = new THREE.Matrix4();
-function updateGlb(s) {
-  // 手のひらの座標系：手首(0)→中指付け根(9)をY軸、人差し指(5)→小指(17)をX軸
-  _y.subVectors(smoothed[9], smoothed[0]).normalize();
-  _x.subVectors(smoothed[17], smoothed[5]).normalize();
-  _z.crossVectors(_x, _y).normalize();
-  _x.crossVectors(_y, _z).normalize();
-  _m.makeBasis(_x, _y, _z);
-  glbModel.quaternion.setFromRotationMatrix(_m);
-  _mid.addVectors(smoothed[0], smoothed[9]).multiplyScalar(0.5);
-  glbModel.position.copy(_mid);
-  const rf = revealFactor(0, performance.now());
-  glbModel.scale.setScalar(smoothed[0].distanceTo(smoothed[9]) * rf); // モデルはBlender側で「手首→中指付け根＝1単位」で作る
+function localBonePosition(bone) {
+  const position = new THREE.Vector3();
+  bone.getWorldPosition(position);
+  return glbModel.worldToLocal(position);
+}
+
+function initializeSkeleton() {
+  const bonesByName = {};
+  glbModel.traverse(object => { if (object.isBone) bonesByName[object.name] = object; });
+  const required = ['wristR', 'handR', ...BONE_ORDER];
+  const missing = required.filter(name => !bonesByName[name]);
+  if (missing.length) throw new Error(`必要な骨がありません: ${missing.join(', ')}`);
+
+  glbModel.updateMatrixWorld(true);
+  const wrist = localBonePosition(bonesByName.handR);
+  const index = localBonePosition(bonesByName.index1R);
+  const middle = localBonePosition(bonesByName.middle1R);
+  const pinky = localBonePosition(bonesByName.pinky1R);
+  restWristLocal.copy(wrist);
+  restPalmLength = Math.max(0.0001, wrist.distanceTo(middle));
+  _basisX.subVectors(pinky, index).normalize();
+  _basisZ.subVectors(middle, wrist).normalize();
+  _basisY.crossVectors(_basisZ, _basisX).normalize();
+  _basisX.crossVectors(_basisY, _basisZ).normalize();
+  _basisMatrix.makeBasis(_basisX, _basisY, _basisZ);
+  restBasisInverse.setFromRotationMatrix(_basisMatrix).invert();
+
+  BONE_ORDER.forEach(name => {
+    const bone = bonesByName[name];
+    const restQuaternion = bone.quaternion.clone();
+    const restDirectionParent = new THREE.Vector3(0, 1, 0)
+      .applyQuaternion(restQuaternion).normalize();
+    boneBindings.set(name, { bone, restQuaternion, restDirectionParent });
+  });
+  document.getElementById('bone-list').textContent = required.join(' · ');
+}
+
+function setProceduralVisible(visible) {
+  joints.forEach(object => object.visible = visible);
+  bones.forEach(object => object.visible = visible);
+  nails.forEach(object => object.visible = visible);
+}
+
+function applyDisplayMode() {
+  const mode = displayMode.value;
+  video.style.opacity = mode === 'model' ? '0' : '1';
+  const showLandmarks = mode === 'landmarks';
+  const showModel = ['overlay', 'model', 'skeleton'].includes(mode);
+  setProceduralVisible(showLandmarks || (!glbModel && showModel));
+  if (glbModel) glbModel.visible = showModel;
+  if (skeletonHelper) skeletonHelper.visible = mode === 'skeleton';
+}
+
+new THREE.GLTFLoader().load('rigged_hand.glb', gltf => {
+  try {
+    glbModel = gltf.scene;
+    handGroup.add(glbModel);
+    glbModel.traverse(object => {
+      if (object.isMesh && object.material) {
+        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        materials.forEach(material => {
+          material.transparent = true;
+          if (material.name && material.name.includes('Nail')) {
+            material.color.set(0xf3b8d4);
+            material.emissive.set(0xff7fb5);
+            if ('transmission' in material) material.transmission = 0;
+            material.userData.isNail = true;
+          }
+          glbMats.push(material);
+        });
+      }
+    });
+    initializeSkeleton();
+    skeletonHelper = new THREE.SkeletonHelper(glbModel);
+    skeletonHelper.material.depthTest = false;
+    skeletonHelper.material.transparent = true;
+    skeletonHelper.material.opacity = 0.8;
+    scene.add(skeletonHelper);
+    applySliders();
+    applyDisplayMode();
+    statusEl.textContent = 'リグ付きモデル読み込み完了';
+  } catch (error) {
+    console.error(error);
+    statusEl.textContent = '骨構造を確認できません';
+    document.getElementById('bone-list').textContent = error.message;
+  }
+}, progress => {
+  if (progress.total) statusEl.textContent = `モデル読み込み ${Math.round(progress.loaded / progress.total * 100)}%`;
+}, error => {
+  console.error('GLB読み込み失敗', error);
+  statusEl.textContent = 'GLB読み込み失敗（簡易モデルで継続）';
+  document.getElementById('bone-list').textContent = 'rigged_hand.glb を読み込めませんでした';
+  applyDisplayMode();
+});
+
+function updateGlb() {
+  if (!glbModel || boneBindings.size !== BONE_ORDER.length) return;
+
+  // 実写の手のひら座標系と、GLBのRest Pose座標系との差分をモデル全体へ適用。
+  _basisX.subVectors(smoothed[17], smoothed[5]).normalize();
+  _basisZ.subVectors(smoothed[9], smoothed[0]).normalize();
+  _basisY.crossVectors(_basisZ, _basisX).normalize();
+  _basisX.crossVectors(_basisY, _basisZ).normalize();
+  _basisMatrix.makeBasis(_basisX, _basisY, _basisZ);
+  _desiredRootQ.setFromRotationMatrix(_basisMatrix).multiply(restBasisInverse);
+  glbModel.quaternion.copy(_desiredRootQ);
+
+  const reveal = 0.05 + revealFactor(0, performance.now()) * 0.95;
+  const modelScale = modelScaleControl.value / 100;
+  const scale = smoothed[0].distanceTo(smoothed[9]) / restPalmLength * modelScale * reveal;
+  glbModel.scale.setScalar(scale);
+  _wristOffset.copy(restWristLocal).multiplyScalar(scale).applyQuaternion(glbModel.quaternion);
+  glbModel.position.copy(smoothed[0]).sub(_wristOffset);
+  glbModel.position.x += Number(offsetXControl.value) / 100;
+  glbModel.position.y += Number(offsetYControl.value) / 100;
+  glbModel.position.z += Number(depthControl.value) / 500;
+  glbModel.updateMatrixWorld(true);
+
+  const response = 1 - (smoothingControl.value / 100) * 0.82;
+  const curlStrength = curlControl.value / 100;
+  BONE_ORDER.forEach(name => {
+    const binding = boneBindings.get(name);
+    const [start, end] = MP_BONE_MAP[name];
+    _dir.subVectors(smoothed[end], smoothed[start]);
+    if (_dir.lengthSq() < 1e-8) return;
+    _dir.normalize();
+    binding.bone.parent.getWorldQuaternion(_parentQ).invert();
+    _desiredParentDir.copy(_dir).applyQuaternion(_parentQ).normalize();
+    _rawDeltaQ.setFromUnitVectors(binding.restDirectionParent, _desiredParentDir);
+    const angle = 2 * Math.acos(THREE.MathUtils.clamp(Math.abs(_rawDeltaQ.w), -1, 1));
+    const maxAngle = name.startsWith('thumb') ? Math.PI * 0.62 : Math.PI * 0.72;
+    const strength = angle > 1e-5 ? Math.min(curlStrength, maxAngle / angle) : 1;
+    _deltaQ.copy(_identityQ).slerp(_rawDeltaQ, strength);
+    _targetQ.copy(_deltaQ).multiply(binding.restQuaternion);
+    if (binding.bone.quaternion.dot(_targetQ) < 0) _targetQ.set(-_targetQ.x, -_targetQ.y, -_targetQ.z, -_targetQ.w);
+    binding.bone.quaternion.slerp(_targetQ, response);
+    binding.bone.updateMatrixWorld(true);
+  });
 }
 
 // ---------- スライダー ----------
@@ -373,6 +573,7 @@ function applySliders() {
   const fusion = sFusion.value / 100;
   const trans = sTrans.value / 100;
   const glow = sGlow.value / 100;
+  const modelOpacity = modelOpacityControl.value / 100;
 
   // 融合比率：0=実写の手だけ / 1=完全にアートの世界（実写が闇に沈む）
   crystalMat.opacity = 0.15 + fusion * 0.85;
@@ -388,16 +589,28 @@ function applySliders() {
   rim.intensity = 0.4 + glow * 2.0;
   // GLBモデルのマテリアルにも反映
   glbMats.forEach(m => {
-    m.opacity = 0.15 + fusion * 0.85;
-    if ('transmission' in m) m.transmission = trans;
-    if (m.emissive) m.emissiveIntensity = glow * 2.2;
+    m.opacity = (0.15 + fusion * 0.85) * modelOpacity;
+    // 環境マップなしだと透過は暗く沈むため、透過を抑えて発光で補う
+    if ('transmission' in m && !m.userData.isNail) m.transmission = trans * 0.5;
+    if (m.emissive) m.emissiveIntensity = (m.userData.isNail ? 0.8 : 0.5) + glow * 2.5;
   });
+  if (glbModel) { key.intensity = 2.0; ambient.intensity = 1.3; }
 
   document.getElementById('o-fusion').textContent = sFusion.value + '%';
   document.getElementById('o-trans').textContent = sTrans.value + '%';
   document.getElementById('o-glow').textContent = sGlow.value + '%';
+  document.getElementById('o-model-scale').textContent = modelScaleControl.value + '%';
+  document.getElementById('o-model-opacity').textContent = modelOpacityControl.value + '%';
+  document.getElementById('o-offset-x').textContent = offsetXControl.value;
+  document.getElementById('o-offset-y').textContent = offsetYControl.value;
+  document.getElementById('o-depth').textContent = depthControl.value;
+  document.getElementById('o-smoothing').textContent = smoothingControl.value + '%';
+  document.getElementById('o-curl').textContent = curlControl.value + '%';
 }
-[sFusion, sTrans, sGlow].forEach(s => s.addEventListener('input', applySliders));
+[sFusion, sTrans, sGlow, modelScaleControl, modelOpacityControl,
+ offsetXControl, offsetYControl, depthControl, smoothingControl, curlControl]
+  .forEach(control => control.addEventListener('input', applySliders));
+displayMode.addEventListener('change', applyDisplayMode);
 applySliders();
 
 // ---------- MediaPipe Hands ----------
@@ -417,7 +630,8 @@ hands.onResults(results => {
     updateHand(results.multiHandLandmarks[0]);
     handGroup.visible = true;
     lastSeen = performance.now();
-    statusEl.textContent = 'トラッキング中';
+    const handedness = results.multiHandedness?.[0]?.label;
+    statusEl.textContent = handedness ? `トラッキング中・${handedness === 'Left' ? '左' : '右'}手` : 'トラッキング中';
   } else if (performance.now() - lastSeen > 600) {
     handGroup.visible = false;
     hasPose = false;
@@ -471,6 +685,15 @@ document.getElementById('demo-btn').addEventListener('click', startDemoMode);
 let facing = 'user';   // 'user'=内側 / 'environment'=外側
 let mirrored = true;   // 内側カメラは鏡像表示
 
+function setMirrored(value, syncControl = true) {
+  mirrored = value;
+  video.style.transform = mirrored ? 'scaleX(-1)' : 'none';
+  if (syncControl) mirrorToggle.checked = mirrored;
+  hasPose = false;
+}
+
+mirrorToggle.addEventListener('change', () => setMirrored(mirrorToggle.checked, false));
+
 async function startCamera(mode) {
   if (video.srcObject) video.srcObject.getTracks().forEach(t => t.stop());
   const stream = await navigator.mediaDevices.getUserMedia({
@@ -483,9 +706,7 @@ async function startCamera(mode) {
   facing = mode;
   // 実際に得られたカメラの向きで鏡像を判定（背面指定でも前面が来る端末対策）
   const settings = stream.getVideoTracks()[0].getSettings();
-  mirrored = (settings.facingMode || 'user') !== 'environment';
-  video.style.transform = mirrored ? 'scaleX(-1)' : 'none';
-  hasPose = false; // 座標系が変わるのでスムージングをリセット
+  setMirrored((settings.facingMode || 'user') !== 'environment');
 }
 
 document.getElementById('flip-btn').addEventListener('click', async () => {
