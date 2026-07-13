@@ -132,7 +132,10 @@
 
   <div id="hud">
     <h1>ART EXPANSION — 技術検証</h1>
-    <div id="status">起動待ち</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div id="status">起動待ち</div>
+      <button id="flip-btn" style="display:none;pointer-events:auto;font-family:inherit;font-size:12px;letter-spacing:.08em;padding:6px 14px;border:1px solid rgba(255,255,255,.6);border-radius:999px;background:rgba(0,0,0,.25);color:#fff;cursor:pointer">カメラ切替</button>
+    </div>
   </div>
 
   <div id="panel">
@@ -283,8 +286,8 @@ function updateHand(landmarks) {
   if (!hasPose) revealStart = now; // 手が現れた瞬間から出現演出
   for (let i = 0; i < 21; i++) {
     const lm = landmarks[i];
-    // MediaPipeは左右反転前の座標。鏡像表示に合わせxを反転
-    _v1.set(1 - lm.x, lm.y, -lm.z * 0.5);
+    // 内側カメラ（鏡像表示）の時だけxを反転して画面に合わせる
+    _v1.set(mirrored ? 1 - lm.x : lm.x, lm.y, -lm.z * 0.5);
     if (!hasPose) smoothed[i].copy(_v1);
     else smoothed[i].lerp(_v1, SMOOTH);
     joints[i].position.copy(smoothed[i]);
@@ -465,16 +468,42 @@ function startDemoMode() {
 }
 document.getElementById('demo-btn').addEventListener('click', startDemoMode);
 
+let facing = 'user';   // 'user'=内側 / 'environment'=外側
+let mirrored = true;   // 内側カメラは鏡像表示
+
+async function startCamera(mode) {
+  if (video.srcObject) video.srcObject.getTracks().forEach(t => t.stop());
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: { facingMode: mode === 'environment' ? { ideal: 'environment' } : 'user',
+             width: { ideal: 1280 }, height: { ideal: 720 } },
+    audio: false,
+  });
+  video.srcObject = stream;
+  await video.play();
+  facing = mode;
+  // 実際に得られたカメラの向きで鏡像を判定（背面指定でも前面が来る端末対策）
+  const settings = stream.getVideoTracks()[0].getSettings();
+  mirrored = (settings.facingMode || mode) !== 'environment';
+  video.style.transform = mirrored ? 'scaleX(-1)' : 'none';
+  hasPose = false; // 座標系が変わるのでスムージングをリセット
+}
+
+document.getElementById('flip-btn').addEventListener('click', async () => {
+  statusEl.textContent = 'カメラ切替中…';
+  try {
+    await startCamera(facing === 'user' ? 'environment' : 'user');
+    statusEl.textContent = mirrored ? '内側カメラ' : '外側カメラ';
+  } catch (e) {
+    statusEl.textContent = 'このカメラは使用できません';
+  }
+});
+
 document.getElementById('start-btn').addEventListener('click', async () => {
   statusEl.textContent = 'カメラ起動中…';
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
-      audio: false,
-    });
-    video.srcObject = stream;
-    await video.play();
+    await startCamera('user');
     document.getElementById('start-overlay').remove();
+    document.getElementById('flip-btn').style.display = '';
     statusEl.textContent = 'モデル読み込み中…';
     loop();
   } catch (e) {
