@@ -483,7 +483,7 @@ async function startCamera(mode) {
   facing = mode;
   // 実際に得られたカメラの向きで鏡像を判定（背面指定でも前面が来る端末対策）
   const settings = stream.getVideoTracks()[0].getSettings();
-  mirrored = (settings.facingMode || mode) !== 'environment';
+  mirrored = (settings.facingMode || 'user') !== 'environment';
   video.style.transform = mirrored ? 'scaleX(-1)' : 'none';
   hasPose = false; // 座標系が変わるのでスムージングをリセット
 }
@@ -501,7 +501,9 @@ document.getElementById('flip-btn').addEventListener('click', async () => {
 document.getElementById('start-btn').addEventListener('click', async () => {
   statusEl.textContent = 'カメラ起動中…';
   try {
-    await startCamera('user');
+    // 外側カメラを優先（手を映すアプリなので）。無い端末は内側へ
+    try { await startCamera('environment'); }
+    catch (_) { await startCamera('user'); }
     document.getElementById('start-overlay').remove();
     document.getElementById('flip-btn').style.display = '';
     statusEl.textContent = 'モデル読み込み中…';
