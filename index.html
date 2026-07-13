@@ -163,7 +163,8 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
 <script>
 // ---------- 基本セットアップ ----------
 const video = document.getElementById('video');
@@ -236,7 +237,38 @@ const bones = BONES.map(() => {
   handGroup.add(m);
   return m;
 });
+
+// 結晶ネイル：爪先に伸びる水晶（このアプリの主役）
+const nailMat = new THREE.MeshPhysicalMaterial({
+  color: 0xf3cfe0,
+  metalness: 0.0,
+  roughness: 0.08,
+  transmission: 0.8,
+  thickness: 0.4,
+  ior: 1.6,
+  emissive: 0xff9ec7,
+  emissiveIntensity: 0.6,
+  transparent: true,
+  opacity: 0.95,
+  flatShading: true,
+});
+const NAIL_SEGS = [[3,4],[7,8],[11,12],[15,16],[19,20]]; // [第一関節, 指先]
+const nails = NAIL_SEGS.map(() => {
+  const geo = new THREE.ConeGeometry(0.009, 0.05, 6);
+  geo.translate(0, 0.025, 0); // 根元を原点に
+  const m = new THREE.Mesh(geo, nailMat);
+  handGroup.add(m);
+  return m;
+});
 handGroup.visible = false;
+
+// 出現演出：指先(seg=4)から手首(seg=0)へ結晶が満ちていく
+let revealStart = 0;
+const REVEAL_SEG = idx => idx === 0 ? 4 : 4 - (((idx - 1) % 4)); // 各関節の遅延段階（指先=0段）
+function revealFactor(seg, now) {
+  const t = (now - revealStart) / 900;             // 全体0.9秒
+  return THREE.MathUtils.clamp((t - seg * 0.12) / 0.35, 0, 1);
+}
 
 const _v1 = new THREE.Vector3(), _v2 = new THREE.Vector3(), _mid = new THREE.Vector3();
 const _up = new THREE.Vector3(0, 1, 0), _dir = new THREE.Vector3(), _q = new THREE.Quaternion();
@@ -247,6 +279,8 @@ let hasPose = false;
 
 function updateHand(landmarks) {
   const SMOOTH = 0.55; // 0=追従なし 1=生の値（ジッタ抑制）
+  const now = performance.now();
+  if (!hasPose) revealStart = now; // 手が現れた瞬間から出現演出
   for (let i = 0; i < 21; i++) {
     const lm = landmarks[i];
     // MediaPipeは左右反転前の座標。鏡像表示に合わせxを反転
@@ -259,18 +293,72 @@ function updateHand(landmarks) {
   // 手の大きさで関節スケールを調整（遠近感）
   const scaleRef = smoothed[0].distanceTo(smoothed[9]); // 手首→中指付け根
   const s = THREE.MathUtils.clamp(scaleRef * 3.2, 0.5, 2.2);
-  joints.forEach(j => j.scale.setScalar(s));
+  joints.forEach((j, i) => j.scale.setScalar(s * revealFactor(REVEAL_SEG(i), now)));
+
+  // GLBモデルがある場合：手のひらの位置・向き・大きさに合わせて配置
+  if (glbModel) {
+    updateGlb(s);
+    return;
+  }
 
   BONES.forEach(([a, b], i) => {
     _v1.copy(smoothed[a]); _v2.copy(smoothed[b]);
     _mid.addVectors(_v1, _v2).multiplyScalar(0.5);
     _dir.subVectors(_v2, _v1);
     const len = _dir.length();
+    const rf = revealFactor(Math.min(REVEAL_SEG(a), REVEAL_SEG(b)), now);
     bones[i].position.copy(_mid);
-    bones[i].scale.set(s, len, s);
+    bones[i].scale.set(s * rf, len * rf, s * rf);
     _q.setFromUnitVectors(_up, _dir.normalize());
     bones[i].setRotationFromQuaternion(_q);
   });
+
+  // 結晶ネイル：第一関節→指先の方向へ伸ばす
+  NAIL_SEGS.forEach(([a, b], i) => {
+    _dir.subVectors(smoothed[b], smoothed[a]).normalize();
+    nails[i].position.copy(smoothed[b]);
+    const rf = revealFactor(0, now); // 爪は最初に現れる
+    nails[i].scale.setScalar(s * rf);
+    _q.setFromUnitVectors(_up, _dir);
+    nails[i].setRotationFromQuaternion(_q);
+  });
+}
+
+// ---------- Blender GLBモデルの読み込み ----------
+// リポジトリに hand.glb を置くと、自動でプロシージャル水晶から差し替わる
+let glbModel = null;
+let glbMats = [];
+new THREE.GLTFLoader().load('hand.glb', gltf => {
+  glbModel = gltf.scene;
+  glbModel.traverse(o => {
+    if (o.isMesh && o.material) {
+      o.material.transparent = true;
+      glbMats.push(o.material);
+    }
+  });
+  // プロシージャルモデルを隠してGLBに切り替え
+  joints.forEach(j => j.visible = false);
+  bones.forEach(b => b.visible = false);
+  nails.forEach(n => n.visible = false);
+  handGroup.add(glbModel);
+  applySliders();
+  statusEl.textContent = 'Blenderモデル読み込み完了';
+}, undefined, () => { /* hand.glb 未設置ならプロシージャル水晶のまま */ });
+
+const _x = new THREE.Vector3(), _y = new THREE.Vector3(), _z = new THREE.Vector3();
+const _m = new THREE.Matrix4();
+function updateGlb(s) {
+  // 手のひらの座標系：手首(0)→中指付け根(9)をY軸、人差し指(5)→小指(17)をX軸
+  _y.subVectors(smoothed[9], smoothed[0]).normalize();
+  _x.subVectors(smoothed[17], smoothed[5]).normalize();
+  _z.crossVectors(_x, _y).normalize();
+  _x.crossVectors(_y, _z).normalize();
+  _m.makeBasis(_x, _y, _z);
+  glbModel.quaternion.setFromRotationMatrix(_m);
+  _mid.addVectors(smoothed[0], smoothed[9]).multiplyScalar(0.5);
+  glbModel.position.copy(_mid);
+  const rf = revealFactor(0, performance.now());
+  glbModel.scale.setScalar(smoothed[0].distanceTo(smoothed[9]) * rf); // モデルはBlender側で「手首→中指付け根＝1単位」で作る
 }
 
 // ---------- スライダー ----------
@@ -291,7 +379,16 @@ function applySliders() {
   crystalMat.transmission = trans;
   crystalMat.roughness = 0.3 - trans * 0.25;
   crystalMat.emissiveIntensity = glow * 2.2;
+  nailMat.opacity = 0.3 + fusion * 0.7;
+  nailMat.transmission = 0.4 + trans * 0.6;
+  nailMat.emissiveIntensity = 0.2 + glow * 2.6;
   rim.intensity = 0.4 + glow * 2.0;
+  // GLBモデルのマテリアルにも反映
+  glbMats.forEach(m => {
+    m.opacity = 0.15 + fusion * 0.85;
+    if ('transmission' in m) m.transmission = trans;
+    if (m.emissive) m.emissiveIntensity = glow * 2.2;
+  });
 
   document.getElementById('o-fusion').textContent = sFusion.value + '%';
   document.getElementById('o-trans').textContent = sTrans.value + '%';
