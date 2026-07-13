@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Nail Editor — Art Expansion 技術検証デモ</title>
+<style>
+  :root {
+    --bg: #faf7f4;
+    --ink: #3d3d3d;
+    --accent: #c9a0a0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    background: var(--bg);
+    color: var(--ink);
+    overflow: hidden;
+    height: 100dvh;
+    transition: background 1.2s ease;
+  }
+  body.art-mode { background: #14161a; color: #e8e4dd; }
+
+  #stage {
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+  }
+  #video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+    transition: opacity .3s;
+  }
+  #veil {
+    position: absolute; inset: 0;
+    background: #0b0d10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s;
+  }
+  #three-canvas {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+  }
+
+  #hud {
+    position: absolute; top: 0; left: 0; right: 0;
+    padding: 16px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    pointer-events: none;
+  }
+  #hud h1 {
+    font-size: 15px; font-weight: normal; letter-spacing: .12em;
+    text-shadow: 0 1px 4px rgba(0,0,0,.25);
+    color: #fff;
+  }
+  #status {
+    font-size: 12px; letter-spacing: .08em;
+    color: #fff; opacity: .85;
+    text-shadow: 0 1px 4px rgba(0,0,0,.3);
+  }
+
+  #panel {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 14px 18px calc(18px + env(safe-area-inset-bottom));
+    background: rgba(255,255,255,.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(0,0,0,.06);
+    transition: background 1.2s ease, border-color 1.2s ease;
+  }
+  body.art-mode #panel {
+    background: rgba(18,20,26,.55);
+    border-top: 1px solid rgba(255,255,255,.12);
+  }
+  .slider-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .slider-row label {
+    width: 7.5em; font-size: 12px; letter-spacing: .05em;
+    flex-shrink: 0;
+  }
+  .slider-row output {
+    width: 3em; font-size: 11px; text-align: right; font-variant-numeric: tabular-nums;
+  }
+  input[type=range] {
+    flex: 1; -webkit-appearance: none; appearance: none;
+    height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, #d9b8a6, #9fd0d8);
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffffff, #cfe9ec 60%, #8fb8c4);
+    border: 1px solid rgba(255,255,255,.8);
+    box-shadow: 0 1px 6px rgba(80,140,160,.45);
+    cursor: pointer;
+  }
+  #hint {
+    font-size: 11px; opacity: .6; letter-spacing: .05em; text-align: center;
+  }
+  #start-overlay {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 18px;
+    background: var(--bg);
+    z-index: 10;
+  }
+  #start-overlay p { font-size: 13px; letter-spacing: .1em; opacity: .7; max-width: 26em; text-align: center; line-height: 1.9; padding: 0 2em;}
+  #start-btn {
+    font-family: inherit;
+    font-size: 15px; letter-spacing: .2em;
+    padding: 14px 46px;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    background: #fff; color: var(--ink);
+    cursor: pointer;
+    transition: all .3s;
+  }
+  #start-btn:hover { background: var(--accent); color: #fff; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <video id="video" autoplay playsinline muted></video>
+  <div id="veil"></div>
+  <canvas id="three-canvas"></canvas>
+
+  <div id="hud">
+    <h1>ART EXPANSION — 技術検証</h1>
+    <div id="status">起動待ち</div>
+  </div>
+
+  <div id="panel">
+    <div class="slider-row">
+      <label for="s-fusion">融合比率</label>
+      <input type="range" id="s-fusion" min="0" max="100" value="60">
+      <output id="o-fusion">60%</output>
+    </div>
+    <div class="slider-row">
+      <label for="s-trans">光の透過率</label>
+      <input type="range" id="s-trans" min="0" max="100" value="70">
+      <output id="o-trans">70%</output>
+    </div>
+    <div class="slider-row">
+      <label for="s-glow">内部光源の輝度</label>
+      <input type="range" id="s-glow" min="0" max="100" value="40">
+      <output id="o-glow">40%</output>
+    </div>
+    <div id="hint">カメラに手をかざすと、水晶の手が追従します</div>
+  </div>
+
+  <div id="start-overlay">
+    <p>Nail Editor with Art Expansion<br>Step 1 技術検証：手のトラッキング × 3Dアート追従</p>
+    <button id="start-btn">はじめる</button>
+    <p style="font-size:11px">カメラの使用許可を求められたら「許可」を選んでください</p>
+    <button id="demo-btn" style="font-family:inherit;font-size:12px;letter-spacing:.1em;padding:8px 24px;border:1px solid #ccc;border-radius:999px;background:transparent;color:inherit;cursor:pointer;opacity:.7">カメラなしでデモを見る</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+// ---------- 基本セットアップ ----------
+const video = document.getElementById('video');
+const veil = document.getElementById('veil');
+const statusEl = document.getElementById('status');
+const canvas = document.getElementById('three-canvas');
+
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const scene = new THREE.Scene();
+// 正射影カメラ：画面座標(0..1)をそのまま使う
+const camera = new THREE.OrthographicCamera(0, 1, 0, 1, -10, 10);
+camera.position.z = 5;
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+const key = new THREE.DirectionalLight(0xfff4e0, 1.2);
+key.position.set(0.3, -0.5, 2);
+scene.add(key);
+const rim = new THREE.PointLight(0x9fd0ff, 1.0);
+rim.position.set(0.8, 0.2, 1.5);
+scene.add(rim);
+
+function resize() {
+  renderer.setSize(innerWidth, innerHeight, false);
+}
+addEventListener('resize', resize);
+resize();
+
+// ---------- 水晶ハンドモデル（21関節に追従するプロシージャルモデル） ----------
+// BlenderのGLBが用意できたら、この部分をGLTFLoaderでの読み込みに差し替える
+const crystalMat = new THREE.MeshPhysicalMaterial({
+  color: 0xbfe3e8,
+  metalness: 0.05,
+  roughness: 0.12,
+  transmission: 0.7,       // 光の透過率スライダーが操作
+  thickness: 0.6,
+  ior: 1.5,
+  emissive: 0x66d0cc,      // 内部光源スライダーが操作
+  emissiveIntensity: 0.4,
+  transparent: true,
+  opacity: 0.9,            // 融合比率スライダーが操作
+  flatShading: true,
+});
+
+const handGroup = new THREE.Group();
+scene.add(handGroup);
+
+// 関節：多面体（水晶片）
+const joints = [];
+for (let i = 0; i < 21; i++) {
+  const isTip = [4, 8, 12, 16, 20].includes(i);
+  const geo = new THREE.IcosahedronGeometry(isTip ? 0.016 : 0.012, 0);
+  const m = new THREE.Mesh(geo, crystalMat);
+  m.rotation.set(Math.random() * 3, Math.random() * 3, Math.random() * 3);
+  handGroup.add(m);
+  joints.push(m);
+}
+// 骨：関節をつなぐ結晶柱
+const BONES = [
+  [0,1],[1,2],[2,3],[3,4],
+  [0,5],[5,6],[6,7],[7,8],
+  [5,9],[9,10],[10,11],[11,12],
+  [9,13],[13,14],[14,15],[15,16],
+  [13,17],[17,18],[18,19],[19,20],
+  [0,17],
+];
+const bones = BONES.map(() => {
+  const geo = new THREE.CylinderGeometry(0.006, 0.009, 1, 6);
+  const m = new THREE.Mesh(geo, crystalMat);
+  handGroup.add(m);
+  return m;
+});
+handGroup.visible = false;
+
+const _v1 = new THREE.Vector3(), _v2 = new THREE.Vector3(), _mid = new THREE.Vector3();
+const _up = new THREE.Vector3(0, 1, 0), _dir = new THREE.Vector3(), _q = new THREE.Quaternion();
+
+// スムージング用の前フレーム座標
+const smoothed = Array.from({ length: 21 }, () => new THREE.Vector3());
+let hasPose = false;
+
+function updateHand(landmarks) {
+  const SMOOTH = 0.55; // 0=追従なし 1=生の値（ジッタ抑制）
+  for (let i = 0; i < 21; i++) {
+    const lm = landmarks[i];
+    // MediaPipeは左右反転前の座標。鏡像表示に合わせxを反転
+    _v1.set(1 - lm.x, lm.y, -lm.z * 0.5);
+    if (!hasPose) smoothed[i].copy(_v1);
+    else smoothed[i].lerp(_v1, SMOOTH);
+    joints[i].position.copy(smoothed[i]);
+  }
+  hasPose = true;
+  // 手の大きさで関節スケールを調整（遠近感）
+  const scaleRef = smoothed[0].distanceTo(smoothed[9]); // 手首→中指付け根
+  const s = THREE.MathUtils.clamp(scaleRef * 3.2, 0.5, 2.2);
+  joints.forEach(j => j.scale.setScalar(s));
+
+  BONES.forEach(([a, b], i) => {
+    _v1.copy(smoothed[a]); _v2.copy(smoothed[b]);
+    _mid.addVectors(_v1, _v2).multiplyScalar(0.5);
+    _dir.subVectors(_v2, _v1);
+    const len = _dir.length();
+    bones[i].position.copy(_mid);
+    bones[i].scale.set(s, len, s);
+    _q.setFromUnitVectors(_up, _dir.normalize());
+    bones[i].setRotationFromQuaternion(_q);
+  });
+}
+
+// ---------- スライダー ----------
+const sFusion = document.getElementById('s-fusion');
+const sTrans = document.getElementById('s-trans');
+const sGlow = document.getElementById('s-glow');
+
+function applySliders() {
+  const fusion = sFusion.value / 100;
+  const trans = sTrans.value / 100;
+  const glow = sGlow.value / 100;
+
+  // 融合比率：0=実写の手だけ / 1=完全にアートの世界（実写が闇に沈む）
+  crystalMat.opacity = 0.15 + fusion * 0.85;
+  veil.style.opacity = Math.max(0, (fusion - 0.55) / 0.45) * 0.92;
+  document.body.classList.toggle('art-mode', fusion > 0.55);
+
+  crystalMat.transmission = trans;
+  crystalMat.roughness = 0.3 - trans * 0.25;
+  crystalMat.emissiveIntensity = glow * 2.2;
+  rim.intensity = 0.4 + glow * 2.0;
+
+  document.getElementById('o-fusion').textContent = sFusion.value + '%';
+  document.getElementById('o-trans').textContent = sTrans.value + '%';
+  document.getElementById('o-glow').textContent = sGlow.value + '%';
+}
+[sFusion, sTrans, sGlow].forEach(s => s.addEventListener('input', applySliders));
+applySliders();
+
+// ---------- MediaPipe Hands ----------
+const hands = new Hands({
+  locateFile: f => `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/${f}`,
+});
+hands.setOptions({
+  maxNumHands: 1,
+  modelComplexity: 1,
+  minDetectionConfidence: 0.6,
+  minTrackingConfidence: 0.6,
+});
+
+let lastSeen = 0;
+hands.onResults(results => {
+  if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+    updateHand(results.multiHandLandmarks[0]);
+    handGroup.visible = true;
+    lastSeen = performance.now();
+    statusEl.textContent = 'トラッキング中';
+  } else if (performance.now() - lastSeen > 600) {
+    handGroup.visible = false;
+    hasPose = false;
+    statusEl.textContent = '手をかざしてください';
+  }
+});
+
+// ---------- 起動 ----------
+let processing = false;
+async function loop() {
+  if (video.readyState >= 2 && !processing) {
+    processing = true;
+    try { await hands.send({ image: video }); } catch (e) { /* 初期化中は無視 */ }
+    processing = false;
+  }
+  renderer.render(scene, camera);
+  requestAnimationFrame(loop);
+}
+
+// ---------- カメラなしデモ（合成ハンドポーズ） ----------
+const BASE_POSE = [
+  [0.50,0.85],[0.42,0.78],[0.36,0.70],[0.32,0.63],[0.29,0.57],
+  [0.44,0.60],[0.43,0.50],[0.42,0.43],[0.41,0.37],
+  [0.50,0.58],[0.50,0.47],[0.50,0.39],[0.50,0.32],
+  [0.56,0.60],[0.57,0.49],[0.575,0.42],[0.58,0.36],
+  [0.62,0.64],[0.64,0.55],[0.65,0.49],[0.66,0.44],
+];
+function syntheticLandmarks(t) {
+  const sway = Math.sin(t * 0.8) * 0.04;
+  const breathe = Math.sin(t * 1.7) * 0.5 + 0.5; // 0..1 指の曲げ
+  return BASE_POSE.map(([x, y], i) => {
+    // 指先ほど曲げの影響を大きく（wristからの距離で近似）
+    const seg = i === 0 ? 0 : ((i - 1) % 4) + 1;
+    const curl = i >= 5 ? breathe * seg * 0.012 : 0;
+    return { x: 1 - (x + sway), y: y + curl, z: -0.05 };
+  });
+}
+function startDemoMode() {
+  document.getElementById('start-overlay').remove();
+  statusEl.textContent = 'デモ再生中（カメラなし）';
+  document.getElementById('hint').textContent = 'デモ再生モード：合成した手のポーズで動作を確認しています';
+  (function demoLoop() {
+    updateHand(syntheticLandmarks(performance.now() / 1000));
+    handGroup.visible = true;
+    renderer.render(scene, camera);
+    requestAnimationFrame(demoLoop);
+  })();
+}
+document.getElementById('demo-btn').addEventListener('click', startDemoMode);
+
+document.getElementById('start-btn').addEventListener('click', async () => {
+  statusEl.textContent = 'カメラ起動中…';
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
+      audio: false,
+    });
+    video.srcObject = stream;
+    await video.play();
+    document.getElementById('start-overlay').remove();
+    statusEl.textContent = 'モデル読み込み中…';
+    loop();
+  } catch (e) {
+    statusEl.textContent = 'カメラを使用できません';
+    alert('カメラの使用が許可されませんでした。ブラウザの設定を確認してください。\n' + e.message);
+  }
+});
+</script>
+</body>
+</html>
