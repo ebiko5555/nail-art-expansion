@@ -386,6 +386,12 @@ function selectArt(name) {
   nailMat.color.setHex(preset.nail);
   nailMat.emissive.setHex(preset.emissive);
   nailMat.wireframe = preset.wireframe;
+  glbMats.forEach(material => {
+    material.color?.setHex(material.userData.isNail ? preset.nail : preset.color);
+    material.emissive?.setHex(preset.emissive);
+    material.wireframe = preset.wireframe;
+    material.needsUpdate = true;
+  });
   document.querySelectorAll('.art-choice').forEach(button => {
     button.setAttribute('aria-pressed', button.dataset.art === name ? 'true' : 'false');
   });
@@ -652,7 +658,8 @@ function applySliders() {
   glbMats.forEach(m => {
     m.opacity = (0.15 + fusion * 0.85) * modelOpacity;
     // 環境マップなしだと透過は暗く沈むため、透過を抑えて発光で補う
-    if ('transmission' in m && !m.userData.isNail) m.transmission = trans * 0.5;
+    if ('transmission' in m && !m.userData.isNail) m.transmission = preset.transmission * trans * 0.7;
+    if ('roughness' in m) m.roughness = THREE.MathUtils.clamp(preset.roughness + (1 - trans) * 0.12, 0.04, 0.92);
     if (m.emissive) m.emissiveIntensity = (m.userData.isNail ? 0.8 : 0.5) + glow * 2.5;
   });
   if (glbModel) { key.intensity = 2.0; ambient.intensity = 1.3; }
